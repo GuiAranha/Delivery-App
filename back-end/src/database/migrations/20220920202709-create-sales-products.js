@@ -5,7 +5,6 @@ module.exports = {
       saleId: {
         allowNull: false,
         primaryKey: true,
-        autoIncrement: true,
         type: Sequelize.INTEGER,
         field: 'sale_id',
         references: {
