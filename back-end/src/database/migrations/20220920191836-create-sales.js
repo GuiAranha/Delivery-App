@@ -16,37 +16,39 @@ module.exports = {
         onDelete: 'CASCADE',
         field: 'user_id',
         references: {
-          model: 'User',
+          model: 'users',
           key: 'id',
         },
       },
       sellerId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        field: 'saller_id',
+        field: 'seller_id',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
         references: {
-          model: 'User',
+          model: 'users',
           key: 'id',
         },
       },
       totalPrice: {
-        type: Sequelize.NUMBER,
+        type: Sequelize.DECIMAL(9, 2),
         allowNull: false,
         field: 'total_price'
 
       },
       deliveryAddress: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(100),
         allowNull: false,
         field: 'delivery_address'
       },
       deliveryNumber: {
-        type: Sequelize.NUMBER,
+        type: Sequelize.STRING(50),
         allowNull: false,
         field: 'delivery_number'
       },
       saleDate: {
-        type: Sequelize.DATETIME,
+        type: Sequelize.DATE,
         allowNull: false,
         field: 'sale_date'
       },
