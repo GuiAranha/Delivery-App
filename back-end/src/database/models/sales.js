@@ -9,7 +9,7 @@ const Sales = (sequelize, DataTypes) => {
       delivery_address: DataTypes.STRING(100),
       delivery_number: DataTypes.STRING(50),
       sale_date: DataTypes.DATE,
-      status: DataTypes.STRING,
+      status: DataTypes.STRING(50),
   }, {
     tableName: 'sales',
     timestamps: false,
