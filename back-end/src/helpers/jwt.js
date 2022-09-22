@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const HandleError = require('./errorHandlers');
 
 const createToken = (user) => {
-  const token = jwt.sign({ data: user }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ data: user }, 'secret_key', {
     expiresIn: '15d',
     algorithm: 'HS256',
   });
@@ -12,7 +12,7 @@ const createToken = (user) => {
 };
 const validateToken = (token) => {
   try {
-    const { data } = jwt.verify(token, process.env.JWT_SECRET);
+    const { data } = jwt.verify(token, 'secret_key');
     return data;
   } catch (_err) {
     throw new HandleError(401, 'Expired or Invalid Token!');

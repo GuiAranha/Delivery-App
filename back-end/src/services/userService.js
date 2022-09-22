@@ -17,7 +17,6 @@ const userCreate = async (user) => {
     throw new HandleError(404, error.message);
   }
   const hash = encryptPassword(user.password);
-  console.log({ ...user, password: hash });
   await User.create({ ...user, password: hash });
   const data = createToken({ email: user.email, role: user.role });
   return data;

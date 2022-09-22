@@ -1,7 +1,7 @@
 'use strict';
 
 const Sales = (sequelize, DataTypes) => {
-  const Sales = sequelize.define('sales', {
+  const Sales = sequelize.define('Sales', {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true
