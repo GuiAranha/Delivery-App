@@ -53,7 +53,7 @@ module.exports = {
         field: 'sale_date'
       },
       status: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(50),
         allowNull: false,
       },
     });
