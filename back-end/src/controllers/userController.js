@@ -1,8 +1,8 @@
-const { userCreate } = require('../services/UserService');
+const { userCreate } = require('../services/userService');
 
-const findUserController = async (req, res) => {
+const userCreateController = async (req, res) => {
   const token = await userCreate(req.body);
   return res.status(201).json({ token });
 };
 
-module.exports = { findUserController };
+module.exports = { userCreateController };
