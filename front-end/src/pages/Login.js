@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
-import propTypes from 'prop-types';
 import AppContext from '../context/AppContext';
 import logo from '../images/deliver.png';
 import { useNavigate } from 'react-router-dom';
+
+const axios = require("axios");
 
 const Login = () => {
   const {
@@ -20,7 +21,7 @@ return (
     <main>
       <div className="container-logo">
         <img className="logo" src={ logo } alt="logo" />
-        <h1 className="title">Delivery²</h1>
+        <h1 className="title">Delivery</h1>
       </div>
       <form className="container">
         <input
@@ -45,7 +46,15 @@ return (
           className="btn-lg"
           type="button"
           data-testid="common_login__button-login"
-          disabled={ !(regex.test(email) && password.length > six) }
+        disabled={!(regex.test(email) && password.length > six)}
+        onClick={async () => {
+          const token = await axios.post('http://localhost:3003/login', {
+              email: 'adm@deliveryapp.com',
+              password: '--adm2@21!!--'
+          }
+          );
+          console.log(token);
+        }}
         >
           LOGIN
       </button>
@@ -63,9 +72,5 @@ return (
     </main>
 );
 }
-
-Login.propTypes = {
-  push: propTypes.func,
-}.isRequired;
 
 export default Login;
