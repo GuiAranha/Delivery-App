@@ -1,17 +1,20 @@
 import React from 'react';
-import { Route, Switch, Navigate } from "react-router-dom";
+import { Route, Navigate, Routes } from "react-router-dom";
 import AppProvider from './context/AppProvider';
 import Login from './pages/Login';
+import Register from './pages/Register';
 
 function App() {
   return (
     <AppProvider>
-      <Switch>
+      <Routes>
         <Route exact path="/login" element={<Login />} />
-        <Route exact path="/" element={<Navigate to="/login"/>} />
-        <Route exact path="*" element={<Navigate to="/login"/>} />
-      </Switch>
+        <Route exact path="/" element={<Navigate to="/login" />} />
+        <Route exact path="*" element={<Navigate to="/login" />} />
+        <Route exact path="/register" element={<Register />} />
+      </Routes>
     </AppProvider>
+
   );
 }
 
