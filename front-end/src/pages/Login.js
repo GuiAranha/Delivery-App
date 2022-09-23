@@ -1,24 +1,36 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AppContext from '../context/AppContext';
+// import AppContext from '../context/AppContext';
 import logo from '../images/deliver.png';
 import { loginUser } from '../helpers/api';
 
 // const axios = require("axios");
 
-const Login = () => {
-  const {
+function Login() {
+  /* const {
     email,
     setEmail,
     password,
     setPassword,
-  } = useContext(AppContext);
+  } = useContext(AppContext); */
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [hidden, setHidden] = useState(true);
   const navigate = useNavigate();
 
-const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-const six = 6;
+  const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+  const six = 6;
 
-return (
+  const validateLogin = async () => {
+    const user = { email, password };
+    const token = await loginUser(user);
+    if (token === null) {
+      setHidden(false);
+    }
+    console.log(token);
+  };
+
+  return (
     <main>
       <div className="container-logo">
         <img className="logo" src={ logo } alt="logo" />
@@ -47,22 +59,12 @@ return (
           className="btn-lg"
           type="button"
           data-testid="common_login__button-login"
-        disabled={!(regex.test(email) && password.length > six)}
-        onClick={async () => {
-          const user = {
-            email,
-            password,
-          };
-          const token = await loginUser(user);
-          console.log(token);
-          if(token === null){
-            window.alert('Login invalido')
-          }
-        }}
+          disabled={ !(regex.test(email) && password.length > six) }
+          onClick={ () => validateLogin() }
         >
           LOGIN
-      </button>
-      <button
+        </button>
+        <button
           className="btn-rg"
           type="button"
           data-testid="common_login__button-register"
@@ -70,11 +72,15 @@ return (
         >
           REGISTRAR
         </button>
-    </div>
-    <p data-testid="common_login__element-invalid-email">Elemento oculto(Mensagem de erro)</p>
-
+      </div>
+      <p
+        hidden={ hidden }
+        data-testid="common_login__element-invalid-email"
+      >
+        Elemento oculto(Mensagem de erro)
+      </p>
     </main>
-);
+  );
 }
 
 export default Login;
