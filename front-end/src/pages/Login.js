@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 import logo from '../images/deliver.png';
-import { useNavigate } from 'react-router-dom';
+import { loginUser } from '../helpers/api';
 
-const axios = require("axios");
+// const axios = require("axios");
 
 const Login = () => {
   const {
@@ -48,12 +49,15 @@ return (
           data-testid="common_login__button-login"
         disabled={!(regex.test(email) && password.length > six)}
         onClick={async () => {
-          const token = await axios.post('http://localhost:3003/login', {
-              email: 'adm@deliveryapp.com',
-              password: '--adm2@21!!--'
-          }
-          );
+          const user = {
+            email,
+            password,
+          };
+          const token = await loginUser(user);
           console.log(token);
+          if(token === null){
+            window.alert('Login invalido')
+          }
         }}
         >
           LOGIN
