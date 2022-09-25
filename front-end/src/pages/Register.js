@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import AppContext from "../context/AppContext";
-import { useNavigate } from "react-router-dom";
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import AppContext from '../context/AppContext';
 
-const Register = () => {
+function Register() {
   const { nameRegister, setNameRegister,
     emailRegister, setEmailRegister,
     passwordRegister, setPasswordRegister } = useContext(AppContext);
@@ -23,24 +23,24 @@ const Register = () => {
           type="nameRegister"
           placeholder="Seu nome"
           data-testid="common_register__input-name"
-          value={nameRegister}
-          onChange={({ target: { value } }) => setNameRegister(value)}
+          value={ nameRegister }
+          onChange={ ({ target: { value } }) => setNameRegister(value) }
         />
         <input
           className="input-register"
           type="emailRegister"
           placeholder="seu-email@site.com.br"
           data-testid="common_register__input-email"
-          value={emailRegister}
-          onChange={({ target: { value } }) => setEmailRegister(value)}
+          value={ emailRegister }
+          onChange={ ({ target: { value } }) => setEmailRegister(value) }
         />
         <input
           className="input-register"
           type="passwordRegister"
           placeholder="**********"
           data-testid="common_register__input-password"
-          value={passwordRegister}
-          onChange={({ target: { value } }) => setPasswordRegister(value)}
+          value={ passwordRegister }
+          onChange={ ({ target: { value } }) => setPasswordRegister(value) }
         />
       </form>
       <div className="container-btn">
@@ -50,12 +50,11 @@ const Register = () => {
           data-testid="common_register__button-register"
           disabled={
             !(
-              regex.test(emailRegister) &&
-              passwordRegister.length > six &&
-              nameRegister.length > twelve
-            )
+              regex.test(emailRegister)
+              && passwordRegister.length > six
+              && nameRegister.length > twelve)
           }
-          onClick={() => navigate("/customer/products")}
+          onClick={ () => navigate('/customer/products') }
         >
           CADASTRAR
         </button>
@@ -65,6 +64,6 @@ const Register = () => {
       </p>
     </main>
   );
-};
+}
 
 export default Register;

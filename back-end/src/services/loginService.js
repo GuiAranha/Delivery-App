@@ -10,16 +10,14 @@ const schema = Joi.object({
 }); 
 
 const userLogin = async ({ email, password }) => {
-  console.log(password);
   const { error } = schema.validate({ email, password });
   if (error) {
     throw new HandleError(404, 'Invalid fields!');
   }
   const user = await User.findOne({ where: { email } });
-  if (!user) {
-    throw new HandleError(404, 'invalid email');
+  if (user === null) {
+    throw new HandleError(404, 'Invalid email');
   }
-  console.log(user.password);
   checkPassword(password, user.password);
   const token = createToken({ email: user.email, role: user.role });
   return { token };
