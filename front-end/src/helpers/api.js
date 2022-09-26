@@ -11,6 +11,10 @@ export const loginUser = async ({ email, password }) => {
   return response;
 };
 
-export const getUser = async () => (
-  console.log('teste')
-);
+export const registerUser = async ({ email, name, password }) => {
+  const response = await instance
+    .post('register', { email, name, password })
+    .catch((error) => error.response.data);
+  console.log(response);
+  return response;
+};

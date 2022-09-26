@@ -1,16 +1,32 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AppContext from '../context/AppContext';
+import { registerUser } from '../helpers/api';
 
 function Register() {
-  const { nameRegister, setNameRegister,
-    emailRegister, setEmailRegister,
-    passwordRegister, setPasswordRegister } = useContext(AppContext);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [hidden, setHidden] = useState(true);
+
   const navigate = useNavigate();
 
   const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
   const six = 6;
   const twelve = 12;
+
+  const register = async (user) => {
+    console.log(user);
+    const response = await registerUser(user);
+    // console.log(response);
+    if ('message' in response) {
+      setErrorMessage(response.message);
+      setHidden(false);
+      return null;
+    }
+    navigate('/customer/products');
+    setHidden(true);
+  };
 
   return (
     <main>
@@ -20,47 +36,50 @@ function Register() {
       <form className="container">
         <input
           className="input-register"
-          type="nameRegister"
+          type="text"
           placeholder="Seu nome"
           data-testid="common_register__input-name"
-          value={ nameRegister }
-          onChange={ ({ target: { value } }) => setNameRegister(value) }
+          value={ name }
+          onChange={ ({ target: { value } }) => setName(value) }
         />
         <input
           className="input-register"
-          type="emailRegister"
+          type="text"
           placeholder="seu-email@site.com.br"
           data-testid="common_register__input-email"
-          value={ emailRegister }
-          onChange={ ({ target: { value } }) => setEmailRegister(value) }
+          value={ email }
+          onChange={ ({ target: { value } }) => setEmail(value) }
         />
         <input
           className="input-register"
-          type="passwordRegister"
+          type="password"
           placeholder="**********"
           data-testid="common_register__input-password"
-          value={ passwordRegister }
-          onChange={ ({ target: { value } }) => setPasswordRegister(value) }
+          value={ password }
+          onChange={ ({ target: { value } }) => setPassword(value) }
         />
       </form>
       <div className="container-btn">
         <button
           className="btn-rg"
-          type="button"
+          type="submit"
           data-testid="common_register__button-register"
           disabled={
             !(
-              regex.test(emailRegister)
-              && passwordRegister.length > six
-              && nameRegister.length > twelve)
+              regex.test(email)
+              && password.length >= six
+              && name.length >= twelve)
           }
-          onClick={ () => navigate('/customer/products') }
+          onClick={ async (e) => {
+            e.preventDefault();
+            await register({ name, email, password });
+          } }
         >
           CADASTRAR
         </button>
       </div>
-      <p data-testid="common_register__element-invalid_register">
-        Elemento oculto(Mensagem de erro)
+      <p hidden={ hidden } data-testid="common_register__element-invalid_register">
+        {errorMessage}
       </p>
     </main>
   );
