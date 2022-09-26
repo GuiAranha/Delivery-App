@@ -18,9 +18,7 @@ export const registerUser = async ({ email, name, password }) => {
   return response;
 };
 
-export const getAllProducts = async () => {
-  const response = await instance
-    .get('products')
-    .catch((error) => error.response.data);
-  return response;
+export const getAllProducts = (setState) => {
+  const data = instance.get('products').then((response) => setState(response.data));
+  return data;
 };

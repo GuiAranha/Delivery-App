@@ -2,13 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Card(props) {
-  const { name, price, image, id } = props;
+  const { name, price, url_image: urlImage, key } = props;
   return (
-    <div data-testid={ `customer_products__element-card-price-${id}` }>
-      <h1>Products page</h1>
-      <p>{name}</p>
-      <p>{price}</p>
-      <p>{image}</p>
+    <div>
+      <p data-testid={ `customer_products__element-card-title-${key}` }>{name}</p>
+      <p data-testid={ `customer_products__element-card-price-${key}` }>
+        {price}
+      </p>
+      <img
+        data-testid={ `customer_products__img-card-bg-image-${key}` }
+        src={ urlImage }
+        alt={ name }
+      />
     </div>
   );
 }
@@ -16,8 +21,8 @@ function Card(props) {
 Card.propTypes = {
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
+  url_image: PropTypes.string.isRequired,
+  key: PropTypes.number.isRequired,
 };
 
 export default Card;
