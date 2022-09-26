@@ -15,6 +15,12 @@ export const registerUser = async ({ email, name, password }) => {
   const response = await instance
     .post('register', { email, name, password })
     .catch((error) => error.response.data);
-  console.log(response);
+  return response;
+};
+
+export const getAllProducts = async () => {
+  const response = await instance
+    .get('products')
+    .catch((error) => error.response.data);
   return response;
 };
