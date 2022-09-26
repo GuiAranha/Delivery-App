@@ -5,10 +5,10 @@ const instance = axios.create({
 });
 
 export const loginUser = async ({ email, password }) => {
-  const data = await instance
+  const response = await instance
     .post('login', { email, password })
-    .catch((error) => console.log(error));
-  console.log(data);
+    .catch((error) => error.response.data);
+  return response;
 };
 
 export const getUser = async () => (

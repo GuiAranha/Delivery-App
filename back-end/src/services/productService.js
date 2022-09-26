@@ -1,4 +1,3 @@
-const Joi = require('joi');
 const { Products } = require('../database/models');
 
 const getAll = async () => {
@@ -12,8 +11,8 @@ const getbyId = async (id) => {
 };
 
 const deleteById = async (id) => {
-  const data = await Products.destroy({ where: { id }});
+  const data = await Products.destroy({ where: { id } });
   return data;
-}
+};
 
-module.exports = { getAll, getbyId, deleteById }
+module.exports = { getAll, getbyId, deleteById };

@@ -1,33 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import AppContext from '../context/AppContext';
 import logo from '../images/deliver.png';
 import { loginUser } from '../helpers/api';
 
-// const axios = require("axios");
-
 function Login() {
-  /* const {
-    email,
-    setEmail,
-    password,
-    setPassword,
-  } = useContext(AppContext); */
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const [hidden, setHidden] = useState(true);
   const navigate = useNavigate();
 
   const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
   const six = 6;
 
-  const validateLogin = async () => {
-    const user = { email, password };
-    const token = await loginUser(user);
-    if (token === null) {
+  const validateLogin = async (user) => {
+    const response = await loginUser(user);
+    console.log(response);
+    if ('message' in response) {
+      setErrorMessage(response.message);
       setHidden(false);
+      return null;
     }
-    console.log(token);
+    navigate('/customer/products');
+    setHidden(true);
+    localStorage.setItem('token', response.data.token);
   };
 
   return (
@@ -57,10 +53,13 @@ function Login() {
       <div className="container-btn">
         <button
           className="btn-lg"
-          type="button"
+          type="submit"
           data-testid="common_login__button-login"
-          disabled={ !(regex.test(email) && password.length > six) }
-          onClick={ () => validateLogin() }
+          disabled={ !(regex.test(email) && password.length >= six) }
+          onClick={ async (e) => {
+            e.preventDefault();
+            await validateLogin({ email, password });
+          } }
         >
           LOGIN
         </button>
@@ -77,7 +76,7 @@ function Login() {
         hidden={ hidden }
         data-testid="common_login__element-invalid-email"
       >
-        Elemento oculto(Mensagem de erro)
+        {errorMessage}
       </p>
     </main>
   );

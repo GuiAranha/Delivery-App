@@ -9,7 +9,7 @@ const encryptPassword = (password) => {
 const checkPassword = (password, passwordHash) => {
   const hash = md5(password);
   if (hash !== passwordHash) {
-    throw new HandleError(401, "Incorrect password")
+    throw new HandleError(401, 'Incorrect password');
   }
 };
 

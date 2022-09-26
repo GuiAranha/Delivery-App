@@ -6,7 +6,7 @@ const userLoginController = async (req, res) => {
     console.log(data);
     return res.status(200).json(data);
   } catch (err) {
-    return err;
+    return res.status(err.status).json({ message: err.message });
   }
 };
 
