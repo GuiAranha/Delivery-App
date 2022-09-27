@@ -7,6 +7,7 @@ import Products from './pages/Products';
 import Checkout from './pages/Checkout';
 import Order from './pages/Order';
 import OrderDetail from './pages/OrderDetail';
+import Manage from './pages/Manage';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route exact path="/" element={ <Navigate to="/login" /> } />
         <Route exact path="*" element={ <Navigate to="/login" /> } />
         <Route exact path="/register" element={ <Register /> } />
+        <Route exact path="/admin/manage/" element={ <Manage /> } />
       </Routes>
     </AppProvider>
   );
