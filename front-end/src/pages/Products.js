@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../components/Card';
+import NavBar from '../components/NavBar';
 import { getAllProducts } from '../helpers/api';
 
 function Products() {
@@ -12,23 +13,7 @@ function Products() {
 
   return (
     <main>
-      <nav>
-        <ul>
-          <li data-testid="customer_products__element-navbar-link-products">
-            Produtos
-          </li>
-          <li data-testid="customer_products__element-navbar-link-orders">
-            Meus pedidos
-          </li>
-          <li data-testid="customer_products__element-navbar-user-full-name">
-            Cicrano da Silva
-          </li>
-          <li data-testid="customer_products__element-navbar-link-logout">
-            Sair
-          </li>
-        </ul>
-      </nav>
-
+      <NavBar />
       <section>
         {cards.map((elem, index) => (
           <Card key={ index } { ...elem } />
