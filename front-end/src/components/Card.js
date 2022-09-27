@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from '../styles/Cards.module.css';
 
 function Card(props) {
   const { name, price, url_image: urlImage, key } = props;
@@ -13,6 +14,7 @@ function Card(props) {
         data-testid={ `customer_products__img-card-bg-image-${key}` }
         src={ urlImage }
         alt={ name }
+        className={ styles.cards }
       />
     </div>
   );
