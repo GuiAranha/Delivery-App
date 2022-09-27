@@ -11,6 +11,14 @@ export const loginUser = async ({ email, password }) => {
   return response;
 };
 
-export const getUser = async () => (
-  console.log('teste')
-);
+export const registerUser = async ({ email, name, password }) => {
+  const response = await instance
+    .post('register', { email, name, password })
+    .catch((error) => error.response.data);
+  return response;
+};
+
+export const getAllProducts = (setState) => {
+  const data = instance.get('products').then((response) => setState(response.data));
+  return data;
+};

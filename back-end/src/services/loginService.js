@@ -19,8 +19,9 @@ const userLogin = async ({ email, password }) => {
     throw new ErrorHandler(404, 'Invalid email');
   }
   checkPassword(password, user.password);
-  const token = createToken({ email: user.email, role: user.role });
-  return { token };
+  const data = { name: user.name, email: user.email, role: user.role };
+  const token = createToken(data);
+  return { token, ...data };
 };
 
 module.exports = { userLogin };
