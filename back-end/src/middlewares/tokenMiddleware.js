@@ -1,5 +1,5 @@
 const jwt = require('../helpers/jwt');
-const HandleError = require('../helpers/errorHandlers');
+const HandleError = require('../helpers/errorHandler');
 
 const tokenMiddleware = (req, _res, next) => {
   const { authorization } = req.headers;
