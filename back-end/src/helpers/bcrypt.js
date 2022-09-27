@@ -1,5 +1,5 @@
 const md5 = require('md5');
-const HandleError = require('./errorHandlers');
+const HandleError = require('./errorHandler');
 
 const encryptPassword = (password) => {
   const hash = md5(password);

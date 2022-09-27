@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const jwt = require('jsonwebtoken');
-const HandleError = require('./errorHandlers');
+const HandleError = require('./errorHandler');
 
 const createToken = (user) => {
   const token = jwt.sign({ data: user }, 'secret_key', {
