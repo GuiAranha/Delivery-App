@@ -2,7 +2,7 @@ const Joi = require('joi');
 const { User } = require('../database/models');
 const { encryptPassword } = require('../helpers/bcrypt');
 const { createToken } = require('../helpers/jwt');
-const HandleError = require('../helpers/errorHandlers');
+const HandleError = require('../helpers/errorHandler');
 
 const schema = Joi.object({
   name: Joi.string().required().min(12),

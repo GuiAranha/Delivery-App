@@ -3,7 +3,7 @@ const { Products } = require('../database/models');
 const ErrorHandler = require('../helpers/errorHandler');
 
 const schema = Joi.object({
-  name: Joi.string.required(),
+  name: Joi.string().required(),
   price: Joi.number().required(),
   urlImage: Joi.string().required(),
 });
