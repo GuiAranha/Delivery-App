@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 // import styles from '../styles/Cards.module.css';
 
 function CheckoutCard(props) {
-  const { name, price, quantity, id } = props;
+  const { name, price, quantity } = props;
   const { index } = props;
   return (
     <div>
@@ -30,7 +30,7 @@ function CheckoutCard(props) {
         {(price * quantity)}
       </p>
       <button
-        data-testid={ `customer_checkout__element-order-table-remove-${id}` }
+        data-testid={ `customer_checkout__element-order-table-remove-${index}` }
         type="button"
       >
         Remover
@@ -43,7 +43,6 @@ CheckoutCard.propTypes = {
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   quantity: PropTypes.number.isRequired,
-  id: PropTypes.number.isRequired,
   index: PropTypes.number.isRequired,
 };
 
