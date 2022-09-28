@@ -21,7 +21,6 @@ function Login() {
       setHidden(false);
       return null;
     }
-    navigate('/customer/products');
     setHidden(true);
     const dataUser = {
       name: response.data.name,
@@ -30,6 +29,7 @@ function Login() {
       token: response.data.token,
     };
     localStorage.setItem('user', JSON.stringify(dataUser));
+    navigate('/customer/products');
   };
 
   return (

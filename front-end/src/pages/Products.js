@@ -6,11 +6,7 @@ import { getAllProducts } from '../helpers/api';
 function Products() {
   const [cards, setCards] = useState([]);
 
-  useEffect(
-    () => getAllProducts(setCards),
-    [],
-  );
-  console.log(cards);
+  useEffect(() => getAllProducts(setCards), []);
 
   return (
     <main>

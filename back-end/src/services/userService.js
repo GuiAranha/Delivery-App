@@ -23,7 +23,7 @@ const userCreate = async (user) => {
 
   const hash = encryptPassword(user.password);
   await User.create({ ...user, password: hash, role: 'customer' });
-  const data = createToken({ email: user.email, role: user.role });
+  const data = createToken({ email: user.email, role: user.role, name: user.name });
   return data;
 };
 

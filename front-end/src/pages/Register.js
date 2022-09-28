@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { registerUser } from '../helpers/api';
+import { registerUser, loginUser } from '../helpers/api';
 
 function Register() {
   const [name, setName] = useState('');
@@ -16,16 +16,22 @@ function Register() {
   const twelve = 12;
 
   const register = async (user) => {
-    console.log(user);
-    const response = await registerUser(user);
-    // console.log(response);
-    if ('message' in response) {
-      setErrorMessage(response.message);
+    const responseRegister = await registerUser(user);
+    if ('message' in responseRegister) {
+      setErrorMessage(responseRegister.message);
       setHidden(false);
       return null;
     }
-    navigate('/customer/products');
+    const responseLogin = await loginUser(user);
     setHidden(true);
+    const dataUser = {
+      name: responseLogin.data.name,
+      email: responseLogin.data.email,
+      role: responseLogin.data.role,
+      token: responseLogin.data.token,
+    };
+    localStorage.setItem('user', JSON.stringify(dataUser));
+    navigate('/customer/products');
   };
 
   return (
