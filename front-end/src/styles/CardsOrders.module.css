@@ -1,0 +1,25 @@
+.field {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 6rem;
+}
+
+.date_price_field, .container {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.container {
+  border: solid 2px green;
+  color: black;
+  margin: 1rem;
+  text-decoration: none;
+  width: 18rem;
+}
+
+.cards_section {
+  display: flex;
+  flex-flow: row wrap;
+}
