@@ -36,9 +36,18 @@ function OrderDetail() {
         <p data-testid="customer_order_details__element-order-details-label-order-date">
           {orderMock.data}
         </p>
-        <p data-testid="customer_order_details__button-delivery-check">
+        <p
+          data-testid={ `customercustomer_order_details__element-order-details-
+          label-delivery-status${orderMock.id}` }
+        >
           {orderMock.status}
         </p>
+        <button
+          data-testid="customer_order_details__button-delivery-check"
+          type="button"
+        >
+          Marcar como Entregue
+        </button>
         {orderMock.itens.map((elem, index) => (
           <OrderDetailCard key={ index } index={ index } { ...elem } />
         ))}
