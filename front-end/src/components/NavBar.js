@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from '../styles/NavBar.module.css';
 
 function NavBar() {
   const [name, setName] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const user = localStorage.getItem('name');
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    if (!user) {
+      navigate('/login');
+    }
     if (user) {
-      setName(user);
+      setName(user.name);
     }
   }, []);
 
   const userLogout = () => {
-    localStorage.removeItem('name');
+    localStorage.removeItem('user');
   };
   return (
     <nav className={ styles.mainContainer }>
@@ -35,10 +40,15 @@ function NavBar() {
       </div>
       <div className={ styles.rigthContainer }>
         <div
-          data-testid="customer_products__element-navbar-user-full-name"
+          // data-testid="customer_products__element-navbar-user-full-name"
           className={ styles.userName }
         >
-          <div>{ name }</div>
+          <div
+            data-testid="customer_products__element-navbar-user-full-name"
+          >
+            { name }
+
+          </div>
         </div>
         <Link
           to="/"

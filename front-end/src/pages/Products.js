@@ -8,8 +8,9 @@ function Products() {
 
   useEffect(
     () => getAllProducts(setCards),
-    [cards],
+    [],
   );
+  console.log(cards);
 
   return (
     <main>

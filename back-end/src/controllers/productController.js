@@ -18,17 +18,17 @@ const deleteByIdController = async (req, res) => {
 const createController = async (req, res) => {
   const data = await productService.create(req.body);
   return res.status(200).json(data);
-}
+};
 
 const updateController = async (req, res) => {
   const data = await productService.update(req.params.id, req.body);
   return res.status(200).json(data);
-}
+};
 
 module.exports = { 
   getAllController, 
   getByIdController, 
   deleteByIdController, 
   createController, 
-  updateController
+  updateController,
  };
