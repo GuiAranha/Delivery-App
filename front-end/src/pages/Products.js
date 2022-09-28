@@ -33,13 +33,18 @@ function Products() {
       <div>
         <button
           type="button"
-          onClick={ () => navigate('customer/checkout') }
+          onClick={ () => navigate('/customer/checkout') }
           data-testid="customer_products__button-cart"
-          disabled={ totalCart === '0,00' }
+          disabled={ totalCart === 0 }
         >
-          <p data-testid="customer_products__checkout-bottom-value">
-            {`Ver carrinho: ${totalCart.toFixed(2).replace('.', ',')}`}
-          </p>
+          <span
+            data-testid="customer_products__checkout-bottom-value"
+          >
+            {`${totalCart
+              .toFixed(2)
+              .replace('.', ',')}`}
+
+          </span>
         </button>
       </div>
     </main>

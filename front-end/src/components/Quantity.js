@@ -8,12 +8,13 @@ function Quantity(productInfos) {
   const { product } = productInfos;
   // console.log(cart);
   useEffect(() => {
-    const item = cart.find((cartItem) => cartItem.id === product.id);
-    if (!item && quantity > 0) {
+    const index = cart.findIndex((cartItem) => cartItem.id === product.id);
+    const numb = -1;
+    if (index === numb && quantity > 0) {
       setCart([...cart, { ...product, quantity }]);
     }
-    if (item) {
-      cart[0].quantity = quantity;
+    if (index !== numb) {
+      cart[index].quantity = quantity;
       const newCart = [...cart];
       setCart(newCart);
     }
