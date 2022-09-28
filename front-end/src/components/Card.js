@@ -1,6 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from '../styles/Cards.module.css';
+import Quantity from './Quantity';
+
+function Card(props) {
+  const { name, price, url_image: urlImage, id } = props;
+  const productInfos = { name, price, id };
+  // console.log(productInfos);
+  return (
+    <div>
+      <div>
+        <p data-testid={ `customer_products__element-card-price-${id}` }>
+          {price.replace('.', ',')}
+        </p>
+        <img
+          data-testid={ `customer_products__img-card-bg-image-${id}` }
+          src={ urlImage }
+          alt={ name }
+          className={ styles.cards }
+        />
+      </div>
+      <div>
+        <p data-testid={ `customer_products__element-card-title-${id}` }>
+          {name}
+        </p>
+        <Quantity product={ productInfos } />
+      </div>
+    </div>
+  );
+}
+Card.propTypes = {
+  name: PropTypes.string.isRequired,
+  price: PropTypes.string.isRequired,
+  url_image: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+};
+export default Card;
+/* import React from 'react';
+import PropTypes from 'prop-types';
+import styles from '../styles/Cards.module.css';
 
 function Card(props) {
   const { name, price, url_image: urlImage, id } = props;
@@ -45,3 +83,4 @@ Card.propTypes = {
 };
 
 export default Card;
+ */
