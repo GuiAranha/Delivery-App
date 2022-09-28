@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import OrderDetailCard from '../components/OrderDetailCard';
 
@@ -22,13 +23,15 @@ function OrderDetail() {
     }],
   };
 
+  const { id } = useParams();
+
   return (
     <main>
       <NavBar />
       <p>Estou em Checkout</p>
       <section>
         <p data-testid="customer_order_details__element-order-details-label-order-id">
-          {orderMock.id}
+          {id}
         </p>
         <p data-testid="customer_order_details__element-order-details-label-seller-name">
           {orderMock.seller}
@@ -38,7 +41,7 @@ function OrderDetail() {
         </p>
         <p
           data-testid={ `customercustomer_order_details__element-order-details-
-          label-delivery-status${orderMock.id}` }
+          label-delivery-status${id}` }
         >
           {orderMock.status}
         </p>
@@ -53,7 +56,10 @@ function OrderDetail() {
         ))}
         <p data-testid="customer_order_details__element-order-total-price">
           Total: R$
-          {orderMock.itens.reduce((acc, obj) => acc + (obj.quantity * obj.price), 0)}
+          {orderMock.itens.reduce(
+            (acc, obj) => acc + obj.quantity * obj.price,
+            0,
+          )}
         </p>
       </section>
     </main>
