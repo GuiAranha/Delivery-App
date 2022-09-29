@@ -6,7 +6,7 @@ function Quantity(productInfos) {
   const { cart, setCart } = useContext(AppContext);
   const [quantity, setQuantity] = useState(0);
   const { product } = productInfos;
-  // console.log(cart);
+
   useEffect(() => {
     const index = cart.findIndex((cartItem) => cartItem.id === product.id);
     const numb = -1;
@@ -19,9 +19,11 @@ function Quantity(productInfos) {
       setCart(newCart);
     }
   }, [quantity]);
+
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
+
   const handleDecrement = () => (
     quantity > 0 ? setQuantity(quantity - 1) : setQuantity(0));
   const handleIncrement = () => setQuantity(quantity + 1);
