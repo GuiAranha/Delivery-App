@@ -36,3 +36,11 @@ export const getUserId = (setState, { email }) => {
     .then((response) => setState(response.data));
   return data;
 };
+
+export const registerSale = async (sale, authorization) => {
+  const magicNumber = 404;
+  const response = await instance
+    .post('sales', sale, { headers: { authorization } })
+    .catch((error) => error.response.data || magicNumber);
+  return response;
+};

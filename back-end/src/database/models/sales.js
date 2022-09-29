@@ -1,23 +1,31 @@
 'use strict';
 
 const Sales = (sequelize, DataTypes) => {
-  const Sales = sequelize.define('Sales', {
+  const Sales = sequelize.define(
+    "Sales",
+    {
       id: {
         type: DataTypes.INTEGER,
-        primaryKey: true
-    },
-      user_id: DataTypes.INTEGER,
-      seller_id: DataTypes.INTEGER,
-      total_price: DataTypes.DECIMAL(9, 2),
-      delivery_address: DataTypes.STRING(100),
-      delivery_number: DataTypes.STRING(50),
-      sale_date: DataTypes.DATE,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      userId: DataTypes.INTEGER,
+      sellerId: DataTypes.INTEGER,
+      totalPrice: DataTypes.DECIMAL(9, 2),
+      deliveryAddress: DataTypes.STRING(100),
+      deliveryNumber: DataTypes.STRING(50),
+      saleDate: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
+      },
       status: DataTypes.STRING(50),
-  }, {
-    tableName: 'sales',
-    timestamps: false,
-    underscored: true,
-  })
+    },
+    {
+      tableName: "sales",
+      timestamps: false,
+      underscored: true,
+    }
+  );
   return Sales;
 }
 
