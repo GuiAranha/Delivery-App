@@ -1,21 +1,24 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from '../context/AppContext';
 // import styles from '../styles/Cards.module.css';
 
 function CheckoutCard(props) {
-  const { name, price, quantity, update } = props;
+  const { name, price, quantity } = props;
   const { index } = props;
 
   const { cart, setCart } = useContext(AppContext);
 
   const removeItem = () => {
     const newCart = [...cart];
-    newCart.splice(index, 1);
+    const ind = newCart.findIndex((cartItem) => cartItem.name === name);
+    newCart.splice(ind, 1);
     setCart(newCart);
-    update(newCart);
-    localStorage.setItem('cart', JSON.stringify(newCart));
   };
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
 
   return (
     <div>
@@ -58,7 +61,6 @@ CheckoutCard.propTypes = {
   price: PropTypes.string.isRequired,
   quantity: PropTypes.number.isRequired,
   index: PropTypes.number.isRequired,
-  update: PropTypes.func.isRequired,
 };
 
 export default CheckoutCard;

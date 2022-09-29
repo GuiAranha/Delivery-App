@@ -22,3 +22,10 @@ export const getAllProducts = (setState) => {
   const data = instance.get('products').then((response) => setState(response.data));
   return data;
 };
+
+export const getAllByRole = (setState, role) => {
+  const data = instance
+    .get(`users/${role}`)
+    .then((response) => setState(response.data));
+  return data;
+};

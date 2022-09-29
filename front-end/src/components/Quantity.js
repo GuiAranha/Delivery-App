@@ -10,6 +10,7 @@ function Quantity(productInfos) {
   useEffect(() => {
     const index = cart.findIndex((cartItem) => cartItem.id === product.id);
     const numb = -1;
+    console.log(cart);
     if (index === numb && quantity > 0) {
       setCart([...cart, { ...product, quantity }]);
     }

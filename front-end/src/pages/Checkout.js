@@ -1,18 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import CheckoutCard from '../components/CheckoutCard';
+import AppContext from '../context/AppContext';
+import { getAllByRole } from '../helpers/api';
 
 function Checkout() {
-  const [cartCheckout, setCartCheckout] = useState([]);
+  const [totalCart, setTotalCart] = useState(0);
+  const [allSellers, setAllSellers] = useState([]);
+  const [seller, setSeller] = useState(0);
+  const { cart } = useContext(AppContext);
+  const calculatePrice = (item) => {
+    const total = item.reduce((acc, cartItem) => {
+      acc += cartItem.quantity * cartItem.price;
+      return acc;
+    }, 0);
+    return total;
+  };
 
   useEffect(() => {
-    const cart = JSON.parse(localStorage.getItem('cart'));
-    setCartCheckout(cart);
-  }, []);
+    const totalPrice = calculatePrice(cart);
+    setTotalCart(totalPrice);
+  }, [cart]);
 
-  const sellersMock = ['andre1', 'andre2'];
-  // const navigate = useNavigate();
+  useEffect(() => {
+    getAllByRole(setAllSellers, 'seller');
+    setSeller(allSellers[0].name);
+  }, []);
 
   return (
     <main>
@@ -21,29 +35,25 @@ function Checkout() {
       <p>Estou em Checkout</p>
 
       <section>
-        {cartCheckout.map((elem, index) => (
-          <CheckoutCard
-            key={ index }
-            index={ index }
-            update={ setCartCheckout }
-            { ...elem }
-          />
+        {cart.map((elem, index) => (
+          <CheckoutCard key={ index } index={ index } { ...elem } />
         ))}
 
         <p data-testid="customer_checkout__element-order-total-price">
           Total: R$
-          {cartCheckout
-            .reduce((acc, obj) => acc + obj.quantity * obj.price, 0)
-            .toFixed(2)
-            .replace('.', ',')}
+          {totalCart.toFixed(2).replace('.', ',')}
         </p>
       </section>
 
       <section>
         <form>
-          <select data-testid="customer_checkout__select-seller">
-            {sellersMock.map((item, index) => (
-              <option key={ index }>{item}</option>
+          <select
+            data-testid="customer_checkout__select-seller"
+            value={ seller }
+            onChange={ (e) => setSeller(e.target.value) }
+          >
+            {allSellers.map((item, index) => (
+              <option key={ index } value={ item.id }>{item.name}</option>
             ))}
           </select>
           <label htmlFor="address">
