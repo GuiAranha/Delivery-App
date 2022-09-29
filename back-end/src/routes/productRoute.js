@@ -11,4 +11,4 @@ productRoute.delete(productsId, productController.deleteByIdController);
 productRoute.post('/products', productController.createController);
 productRoute.put(productsId, productController.updateController);
 
-module.exports = productRoute;
+module.exports = { productRoute };
