@@ -1,42 +1,50 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+// import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import CheckoutCard from '../components/CheckoutCard';
 
 function Checkout() {
-  const cardsMock = [
-    {
-      name: 'teste',
-      price: 75,
-      quantity: 2,
-      id: 1,
-    },
-    {
-      name: 'aaaaaa',
-      price: 30,
-      quantity: 2,
-      id: 2,
-    },
-  ];
+  const [cartCheckout, setCartCheckout] = useState([]);
+
+  useEffect(() => {
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    setCartCheckout(cart);
+  }, []);
+
   const sellersMock = ['andre1', 'andre2'];
+  // const navigate = useNavigate();
 
   return (
     <main>
       <NavBar />
+
       <p>Estou em Checkout</p>
+
       <section>
-        {cardsMock.map((elem, index) => (
-          <CheckoutCard key={ index } index={ index } { ...elem } />
+        {cartCheckout.map((elem, index) => (
+          <CheckoutCard
+            key={ index }
+            index={ index }
+            update={ setCartCheckout }
+            { ...elem }
+          />
         ))}
+
         <p data-testid="customer_checkout__element-order-total-price">
           Total: R$
-          {cardsMock.reduce((acc, obj) => acc + (obj.quantity * obj.price), 0)}
+          {cartCheckout
+            .reduce((acc, obj) => acc + obj.quantity * obj.price, 0)
+            .toFixed(2)
+            .replace('.', ',')}
         </p>
       </section>
 
       <section>
         <form>
           <select data-testid="customer_checkout__select-seller">
-            {sellersMock.map((item, index) => <option key={ index }>{item}</option>)}
+            {sellersMock.map((item, index) => (
+              <option key={ index }>{item}</option>
+            ))}
           </select>
           <label htmlFor="address">
             Endereço

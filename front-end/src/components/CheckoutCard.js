@@ -1,37 +1,51 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import AppContext from '../context/AppContext';
 // import styles from '../styles/Cards.module.css';
 
 function CheckoutCard(props) {
-  const { name, price, quantity } = props;
+  const { name, price, quantity, update } = props;
   const { index } = props;
+
+  const { cart, setCart } = useContext(AppContext);
+
+  const removeItem = () => {
+    const newCart = [...cart];
+    newCart.splice(index, 1);
+    setCart(newCart);
+    update(newCart);
+    localStorage.setItem('cart', JSON.stringify(newCart));
+  };
+
   return (
     <div>
-      <p
-        data-testid={ `customer_checkout__element-order-table-item-number-
-        ${(index + 1)}` }
+      <div
+        data-testid={ `customer_checkout__element-order-table-item-number-${index}` }
       >
-        {(index + 1)}
-      </p>
-      <p data-testid={ `customer_checkout__element-order-table-name-${(index + 1)}` }>
+        {index + 1}
+      </div>
+      <div data-testid={ `customer_checkout__element-order-table-name-${index}` }>
         {name}
-      </p>
-      <p data-testid={ `customer_checkout__element-order-table-quantity-${(index + 1)}` }>
+      </div>
+      <div
+        data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
+      >
         {quantity}
-      </p>
-      <p
-        data-testid={ `customer_checkout__element-order-table-unit-price-${(index + 1)}` }
+      </div>
+      <div
+        data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }
       >
-        {price}
-      </p>
-      <p
-        data-testid={ `customer_checkout__element-order-table-sub-total-${(index + 1)}` }
+        {Number(price).toFixed(2).replace('.', ',')}
+      </div>
+      <div
+        data-testid={ `customer_checkout__element-order-table-sub-total-${index}` }
       >
-        {(price * quantity)}
-      </p>
+        {Number(price * quantity).toFixed(2).replace('.', ',')}
+      </div>
       <button
         data-testid={ `customer_checkout__element-order-table-remove-${index}` }
         type="button"
+        onClick={ removeItem }
       >
         Remover
       </button>
@@ -41,9 +55,10 @@ function CheckoutCard(props) {
 
 CheckoutCard.propTypes = {
   name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
+  price: PropTypes.string.isRequired,
   quantity: PropTypes.number.isRequired,
   index: PropTypes.number.isRequired,
+  update: PropTypes.func.isRequired,
 };
 
 export default CheckoutCard;
