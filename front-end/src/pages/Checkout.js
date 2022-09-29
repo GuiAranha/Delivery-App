@@ -109,8 +109,8 @@ function Checkout() {
                 status: 'Pendente',
               };
               const { data } = await registerSale(obj, token);
-              const { saleId } = data;
-              navigate(`/customer/orders/${saleId}`);
+              const { id } = data;
+              navigate(`/customer/orders/${id}`);
             } }
           >
             Finalizar Pedido

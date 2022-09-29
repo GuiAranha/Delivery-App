@@ -17,20 +17,8 @@ async function create(sale) {
   if (error) {
     throw new ErrorHandler(404, error.message);
   }
-  const data = await Sales.create({ ...sale });
-  const {
-    id, saleDate, userId, sellerId, totalPrice, deliveryAddress, deliveryNumber,
-    status } = data;
-  return {
-    saleId: Number(id),
-    saleDate,
-    userId,
-    sellerId,
-    totalPrice,
-    deliveryAddress,
-    deliveryNumber,
-    status,
-  };
+  const data = await Sales.create(sale);
+  return data;
 }
 
 module.exports = { create };
