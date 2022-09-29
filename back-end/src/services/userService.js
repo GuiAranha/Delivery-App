@@ -33,4 +33,9 @@ const userSearch = async (role) => {
   return response;
 };
 
-module.exports = { userCreate, userSearch };
+const userGetId = async (email) => {
+  const response = await User.findOne({ where: { email } });
+  return response;
+};
+
+module.exports = { userCreate, userSearch, userGetId };

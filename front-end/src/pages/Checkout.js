@@ -3,12 +3,13 @@ import React, { useEffect, useState, useContext } from 'react';
 import NavBar from '../components/NavBar';
 import CheckoutCard from '../components/CheckoutCard';
 import AppContext from '../context/AppContext';
-import { getAllByRole } from '../helpers/api';
+import { getAllByRole, getUserId } from '../helpers/api';
 
 function Checkout() {
   const [totalCart, setTotalCart] = useState(0);
   const [allSellers, setAllSellers] = useState([]);
   const [seller, setSeller] = useState(0);
+  const [, setUserId] = useState('');
   const { cart } = useContext(AppContext);
   const calculatePrice = (item) => {
     const total = item.reduce((acc, cartItem) => {
@@ -25,7 +26,9 @@ function Checkout() {
 
   useEffect(() => {
     getAllByRole(setAllSellers, 'seller');
-    setSeller(allSellers[0].name);
+
+    const { email } = JSON.parse(localStorage.getItem('user'));
+    getUserId(setUserId, { email });
   }, []);
 
   return (

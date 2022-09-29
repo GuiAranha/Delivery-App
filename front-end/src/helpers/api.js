@@ -29,3 +29,10 @@ export const getAllByRole = (setState, role) => {
     .then((response) => setState(response.data));
   return data;
 };
+
+export const getUserId = (setState, { email }) => {
+  const data = instance
+    .post('user', { email })
+    .then((response) => setState(response.data));
+  return data;
+};

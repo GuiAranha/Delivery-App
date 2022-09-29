@@ -11,4 +11,14 @@ const userSearchController = async (req, res) => {
   return res.status(200).json(data);
 };
 
-module.exports = { userCreateController, userSearchController };
+const userGetIdByEmail = async (req, res) => {
+  const { email } = req.body;
+  const data = await userService.userGetId(email);
+  return res.status(200).json(data);
+};
+
+module.exports = {
+  userCreateController,
+  userSearchController,
+  userGetIdByEmail,
+};
