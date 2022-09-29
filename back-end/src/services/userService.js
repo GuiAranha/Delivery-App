@@ -27,4 +27,15 @@ const userCreate = async (user) => {
   return data;
 };
 
-module.exports = { userCreate };
+const userSearch = async (role) => {
+  const response = await User.findAll({ where: { role } });
+  console.log(response);
+  return response;
+};
+
+const userGetId = async (email) => {
+  const response = await User.findOne({ where: { email } });
+  return response;
+};
+
+module.exports = { userCreate, userSearch, userGetId };

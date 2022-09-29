@@ -2,8 +2,23 @@ const userService = require('../services/userService');
 
 const userCreateController = async (req, res) => {
   const data = await userService.userCreate(req.body);
-  console.log(data);
   return res.status(201).json(data);
 };
 
-module.exports = { userCreateController };
+const userSearchController = async (req, res) => {
+  const { role } = req.params;
+  const data = await userService.userSearch(role);
+  return res.status(200).json(data);
+};
+
+const userGetIdByEmail = async (req, res) => {
+  const { email } = req.body;
+  const data = await userService.userGetId(email);
+  return res.status(200).json(data);
+};
+
+module.exports = {
+  userCreateController,
+  userSearchController,
+  userGetIdByEmail,
+};
