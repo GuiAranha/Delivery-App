@@ -6,11 +6,15 @@ import AppContext from '../context/AppContext';
 import { getAllByRole, getUserId } from '../helpers/api';
 
 function Checkout() {
+  const { cart } = useContext(AppContext);
+
   const [totalCart, setTotalCart] = useState(0);
   const [allSellers, setAllSellers] = useState([]);
   const [seller, setSeller] = useState(0);
   const [, setUserId] = useState('');
-  const { cart } = useContext(AppContext);
+
+  // const navigate = useNavigate();
+
   const calculatePrice = (item) => {
     const total = item.reduce((acc, cartItem) => {
       acc += cartItem.quantity * cartItem.price;
@@ -56,7 +60,9 @@ function Checkout() {
             onChange={ (e) => setSeller(e.target.value) }
           >
             {allSellers.map((item, index) => (
-              <option key={ index } value={ item.id }>{item.name}</option>
+              <option key={ index } value={ item.id }>
+                {item.name}
+              </option>
             ))}
           </select>
           <label htmlFor="address">
@@ -78,6 +84,8 @@ function Checkout() {
           <button
             type="submit"
             data-testid="customer_checkout__button-submit-order"
+            disabled={ totalCart === 0 }
+            // onClick={ `/customer/orders/${orderId}` }
           >
             Finalizar Pedido
           </button>

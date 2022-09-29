@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from '../context/AppContext';
 // import styles from '../styles/Cards.module.css';
@@ -12,13 +12,10 @@ function CheckoutCard(props) {
   const removeItem = () => {
     const newCart = [...cart];
     const ind = newCart.findIndex((cartItem) => cartItem.name === name);
-    newCart.splice(ind, 1);
+    newCart.splice(ind);
     setCart(newCart);
+    localStorage.setItem('cart', JSON.stringify(newCart));
   };
-
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }, [cart]);
 
   return (
     <div>
