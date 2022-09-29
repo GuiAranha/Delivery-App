@@ -15,7 +15,7 @@ function Login() {
 
   const validateLogin = async (user) => {
     const response = await loginUser(user);
-    console.log(response);
+
     if ('message' in response) {
       setErrorMessage(response.message);
       setHidden(false);
