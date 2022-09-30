@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styles from '../styles/CardsOrders.module.css';
 
+const moment = require('moment');
+
 function CardOrder(props) {
   const { id, status, saleDate, totalPrice } = props;
 
   const date = new Date(saleDate);
-  const day = date.getDate();
-  const month = date.getMonth() + 1;
-  const year = date.getFullYear();
+  // const day = date.getDate();
+  // const month = date.getMonth() + 1;
+  // const year = date.getFullYear();
 
   return (
     <Link className={ styles.container } to={ `${id}` }>
@@ -18,18 +20,24 @@ function CardOrder(props) {
         <div data-testid={ `customer_orders__element-order-id-${id}` }>{id}</div>
       </section>
       <div className={ styles.date_price_field }>
-        <section
-          className={ styles.field }
-          data-testid={ `customer_orders__element-delivery-status-${id}` }
-        >
-          {`Status: ${status}`}
+        <section className={ styles.field }>
+          <span>{'Status: '}</span>
+          <span data-testid={ `customer_orders__element-delivery-status-${id}` }>
+            {`${status}`}
+          </span>
         </section>
         <div className={ styles.field }>
-          <section data-testid={ `customer_orders__element-order-date-${id}` }>
-            {`Data: ${day}/${month + 1}/${year}`}
+          <section>
+            <span>{'Data: '}</span>
+            <span data-testid={ `customer_orders__element-order-date-${id}` }>
+              {`${moment(date).format('DD/MM/YYYY')}`}
+            </span>
           </section>
-          <section data-testid={ `customer_orders__element-card-price-${id}` }>
-            {`R$ ${totalPrice}`}
+          <section>
+            <span>{'Valor: '}</span>
+            <span data-testid={ `customer_orders__element-card-price-${id}` }>
+              {`${Number(totalPrice).toFixed(2).replace('.', ',')}`}
+            </span>
           </section>
         </div>
       </div>
