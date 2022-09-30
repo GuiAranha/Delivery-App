@@ -18,7 +18,6 @@ module.exports = {
       urlImage: {
         type: Sequelize.STRING(200),
         field: 'url_image'
-
       }
     });
   },

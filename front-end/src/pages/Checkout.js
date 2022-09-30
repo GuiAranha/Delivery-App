@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import CheckoutCard from '../components/CheckoutCard';
 import AppContext from '../context/AppContext';
-import { getAllByRole, getUserId, registerSale } from '../helpers/api';
+import {
+  getAllByRole, getUserId, registerSale, registerSaleProducts,
+} from '../helpers/api';
 
 function Checkout() {
   const { cart } = useContext(AppContext);
@@ -109,8 +111,13 @@ function Checkout() {
                 status: 'Pendente',
               };
               const { data } = await registerSale(obj, token);
-              const { id } = data;
-              navigate(`/customer/orders/${id}`);
+              const { id: saleId } = data;
+              const payload = cart.map(({ id: productId, quantity }) => ({
+                saleId, productId, quantity,
+              }));
+
+              await registerSaleProducts(payload);
+              navigate(`/customer/orders/${saleId}`);
             } }
           >
             Finalizar Pedido
