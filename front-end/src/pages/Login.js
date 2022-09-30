@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../images/deliver.png';
 import { loginUser } from '../helpers/api';
@@ -9,6 +9,14 @@ function Login() {
   const [errorMessage, setErrorMessage] = useState('');
   const [hidden, setHidden] = useState(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+
+    if (user) {
+      navigate('/customer/products');
+    }
+  }, []);
 
   const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
   const six = 6;
