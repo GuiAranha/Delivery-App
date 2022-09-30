@@ -34,7 +34,7 @@ async function createSalesProducts(payload) {
   if (error) {
     throw new ErrorHandler(404, error.message);
   }
-  
+
   const data = await SalesProducts.bulkCreate(payload);
   return data;
 }

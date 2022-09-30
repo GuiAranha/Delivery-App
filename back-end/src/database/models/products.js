@@ -4,7 +4,8 @@ const Products = (sequelize, DataTypes) => {
   const Products = sequelize.define('Products', {
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true,
     },
     name: DataTypes.STRING(100),
     price: DataTypes.DECIMAL(4, 2),
@@ -14,14 +15,8 @@ const Products = (sequelize, DataTypes) => {
     timestamps: false,
     underscored: true,
   })
+  
   return Products;
-};
-
-Products.associate = (model) => {
-  Products.hasMany(model.SalesProducts, {
-    foreignKey: "productId",
-    as: "salesProducts",
-  });
 };
 
 module.exports = Products
