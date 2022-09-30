@@ -44,3 +44,11 @@ export const registerSale = async (sale, authorization) => {
     .catch((error) => error.response.data || magicNumber);
   return response;
 };
+
+export const registerSaleProducts = async (payload, authorization) => {
+  const magicNumber = 404;
+  const response = await instance
+    .post('sales_products', payload, { headers: { authorization } })
+    .catch((error) => error.response.data || magicNumber);
+  return response;
+};
