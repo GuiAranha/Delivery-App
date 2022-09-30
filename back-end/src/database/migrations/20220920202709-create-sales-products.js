@@ -9,7 +9,7 @@ module.exports = {
         field: "sale_id",
         references: {
           model: "sales",
-          key: "id",
+          key: "productId",
         },
       },
       productId: {
@@ -18,7 +18,7 @@ module.exports = {
         field: "product_id",
         references: {
           model: "products",
-          key: "id",
+          key: "saleId",
         },
       },
       quantity: {
