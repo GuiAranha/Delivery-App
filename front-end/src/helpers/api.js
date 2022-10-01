@@ -61,8 +61,6 @@ export const getAllSales = (setState) => {
 };
 
 export const getSaleById = (id, setState) => {
-  const data = instance
-    .get(`sales/${id}`)
-    .then((response) => setState(response.data));
+  const data = instance.get(`sales/${id}`).then((response) => setState(response.data));
   return data;
 };

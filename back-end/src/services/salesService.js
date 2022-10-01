@@ -44,9 +44,21 @@ async function getAllSales() {
   return response;
 }
 
-async function getSaleById(id) {
-  const response = await Sales.findOne({
-    where: { id },
+const transform = (response) => {
+  const { totalPrice, saleDate, status, products, seller } = response;
+  const newProducts = products.map(
+    ({ id, name, price, SalesProducts: { quantity } }) => ({
+      id,
+      name,
+      price,
+      quantity,
+    }),
+  );
+  return { totalPrice, saleDate, status, products: newProducts, seller: seller.name };
+};
+
+const getSaleById = async (id) => {
+  const response = await Sales.findByPk(id, {
     attributes: ['id', 'totalPrice', 'saleDate', 'status'],
     include: [
       {
@@ -60,7 +72,7 @@ async function getSaleById(id) {
       { model: User, as: 'seller', attributes: ['name'] },
     ],
   });
-  return response;
-}
+  return transform(response);
+};
 
 module.exports = { createSale, createSalesProducts, getAllSales, getSaleById };
