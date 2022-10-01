@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const { Sales, SalesProducts } = require('../database/models');
+const { Sales, User, SalesProducts, Products } = require('../database/models');
 const ErrorHandler = require('../helpers/errorHandler');
 
 const schemaSale = Joi.object({
@@ -44,4 +44,35 @@ async function getAllSales() {
   return response;
 }
 
-module.exports = { createSale, createSalesProducts, getAllSales };
+const transform = (response) => {
+  const { totalPrice, saleDate, status, products, seller } = response;
+  const newProducts = products.map(
+    ({ id, name, price, SalesProducts: { quantity } }) => ({
+      id,
+      name,
+      price,
+      quantity,
+    }),
+  );
+  return { totalPrice, saleDate, status, products: newProducts, seller: seller.name };
+};
+
+const getSaleById = async (id) => {
+  const response = await Sales.findByPk(id, {
+    attributes: ['id', 'totalPrice', 'saleDate', 'status'],
+    include: [
+      {
+        model: Products,
+        as: 'products',
+        attributes: ['id', 'name', 'price'],
+        through: {
+          attributes: ['quantity'],
+        },
+      },
+      { model: User, as: 'seller', attributes: ['name'] },
+    ],
+  });
+  return transform(response);
+};
+
+module.exports = { createSale, createSalesProducts, getAllSales, getSaleById };

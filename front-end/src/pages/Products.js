@@ -9,7 +9,9 @@ function Products() {
   const { cart } = useContext(AppContext);
   const [allProducts, setAllProducts] = useState([]);
   const [totalCart, setTotalCart] = useState(0);
+
   const navigate = useNavigate();
+
   const calculatePrice = (item) => {
     const total = item.reduce((acc, cartItem) => {
       acc += cartItem.quantity * cartItem.price;
@@ -19,6 +21,7 @@ function Products() {
   };
 
   useEffect(() => getAllProducts(setAllProducts), []);
+
   useEffect(() => {
     const totalPrice = calculatePrice(cart);
     setTotalCart(totalPrice);

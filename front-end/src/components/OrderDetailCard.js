@@ -42,7 +42,7 @@ function OrderDetailCard(props) {
 
 OrderDetailCard.propTypes = {
   name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
+  price: PropTypes.string.isRequired,
   quantity: PropTypes.number.isRequired,
   index: PropTypes.number.isRequired,
 };
