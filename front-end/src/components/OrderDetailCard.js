@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 // import styles from '../styles/Cards.module.css';
 
 function OrderDetailCard(props) {
-  const { name, price, quantity } = props;
+  const { name, price, SalesProducts: { quantity } } = props;
   const { index } = props;
   return (
     <div>
@@ -42,8 +42,10 @@ function OrderDetailCard(props) {
 
 OrderDetailCard.propTypes = {
   name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  quantity: PropTypes.number.isRequired,
+  price: PropTypes.string.isRequired,
+  SalesProducts: PropTypes.shape({
+    quantity: PropTypes.number.isRequired,
+  }).isRequired,
   index: PropTypes.number.isRequired,
 };
 

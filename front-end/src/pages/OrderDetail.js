@@ -1,29 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
 import NavBar from '../components/NavBar';
 import OrderDetailCard from '../components/OrderDetailCard';
+import { getSaleById } from '../helpers/api';
+
+const moment = require('moment');
 
 function OrderDetail() {
-  const orderMock = {
-    id: 1,
-    seller: 'nome do vendedor',
-    data: '01/01/2022',
-    status: 'entregue',
-    itens: [{
-      name: 'teste',
-      price: 75,
-      quantity: 2,
-      id: 1,
-    },
-    {
-      name: 'aaaaaa',
-      price: 30,
-      quantity: 2,
-      id: 2,
-    }],
-  };
-
   const { id } = useParams();
+  const [saleState, setSaleState] = useState([]);
+
+  useEffect(() => getSaleById(id, setSaleState), []);
+
+  const data = saleState || {};
+
+  const {
+    totalPrice,
+    saleDate,
+    status,
+    products,
+    seller,
+  } = data;
+
+  const date = new Date(saleDate);
 
   return (
     <main>
@@ -34,16 +34,16 @@ function OrderDetail() {
           {id}
         </p>
         <p data-testid="customer_order_details__element-order-details-label-seller-name">
-          {orderMock.seller}
+          {seller.name}
         </p>
         <p data-testid="customer_order_details__element-order-details-label-order-date">
-          {orderMock.data}
+          {`${moment(date).format('DD/MM/YYYY')}`}
         </p>
         <p
           data-testid={ `customercustomer_order_details__element-order-details-
           label-delivery-status${id}` }
         >
-          {orderMock.status}
+          {status}
         </p>
         <button
           data-testid="customer_order_details__button-delivery-check"
@@ -51,15 +51,11 @@ function OrderDetail() {
         >
           Marcar como Entregue
         </button>
-        {orderMock.itens.map((elem, index) => (
+        {products.map((elem, index) => (
           <OrderDetailCard key={ index } index={ index } { ...elem } />
         ))}
         <p data-testid="customer_order_details__element-order-total-price">
-          Total: R$
-          {orderMock.itens.reduce(
-            (acc, obj) => acc + obj.quantity * obj.price,
-            0,
-          )}
+          {`${Number(totalPrice).toFixed(2).replace('.', ',')}`}
         </p>
       </section>
     </main>
