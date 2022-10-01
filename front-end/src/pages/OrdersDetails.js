@@ -9,7 +9,7 @@ const moment = require('moment');
 
 function OrdersDetails() {
   const { id } = useParams();
-  const [saleState, setSaleState] = useState({ products: [] });
+  const [saleState, setSaleState] = useState({ products: [], status: '' });
 
   useEffect(() => {
     getSaleById(id, setSaleState);
@@ -24,7 +24,7 @@ function OrdersDetails() {
       <NavBar userRole="seller" />
       <p>Estou em OrderDetails de pessoa vendedora</p>
       <div
-        data-testid={ `seller_order_details__element-order-details-label-order-${id}` }
+        data-testid="seller_order_details__element-order-details-label-order-id"
       >
         PEDIDO:
         {' '}
@@ -38,16 +38,22 @@ function OrdersDetails() {
       <div
         data-testid="seller_order_details__element-order-details-label-delivery-status"
       >
-        {`${status.toUpperCase()}`}
+        {`${status}`}
       </div>
 
-      <div data-testid="seller_order_details__button-preparing-check">
+      <button
+        type="button"
+        data-testid="seller_order_details__button-preparing-check"
+      >
         PREPARAR PEDIDO
-      </div>
+      </button>
 
-      <div data-testid="seller_order_details__button-dispatch-check">
+      <button
+        type="button"
+        data-testid="seller_order_details__button-dispatch-check"
+      >
         SAIU PARA ENTREGA
-      </div>
+      </button>
 
       {products.map((elem, index) => (
         <OrderDetailCard
@@ -58,7 +64,7 @@ function OrdersDetails() {
         />
       ))}
 
-      <p data-testid="customer_order_details__element-order-total-price">
+      <p data-testid="seller_order_details__element-order-total-price">
         {`${Number(totalPrice).toFixed(2).replace('.', ',')}`}
       </p>
     </main>
