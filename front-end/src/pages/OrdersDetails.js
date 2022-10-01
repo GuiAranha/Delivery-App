@@ -15,38 +15,49 @@ function OrdersDetails() {
     getSaleById(id, setSaleState);
   }, []);
 
-  const { totalPrice, saleDate, status, seller, products } = saleState;
+  const { totalPrice, saleDate, status, products } = saleState;
 
-  const date = new Date(saleDate);
+  const lengthIdSale = 4;
 
   return (
     <main>
-      <NavBar />
-      <p>Estou em OrderDetails</p>
-      <p data-testid="customer_order_details__element-order-details-label-order-id">
-        {id}
-      </p>
-      <p data-testid="customer_order_details__element-order-details-label-seller-name">
-        {seller}
-      </p>
-      <p data-testid="customer_order_details__element-order-details-label-order-date">
-        {`${moment(date).format('DD/MM/YYYY')}`}
-      </p>
-      <p
-        data-testid="customer_order_details__element-order-details-label-delivery-status"
+      <NavBar userRole="seller" />
+      <p>Estou em OrderDetails de pessoa vendedora</p>
+      <div
+        data-testid={ `seller_order_details__element-order-details-label-order-${id}` }
       >
-        {status}
-      </p>
-      <button
-        data-testid="customer_order_details__button-delivery-check"
-        type="button"
-        disabled
+        PEDIDO:
+        {' '}
+        {`${id.padStart(lengthIdSale, '0')}`}
+      </div>
+
+      <div data-testid="seller_order_details__element-order-details-label-order-date">
+        {`${moment(saleDate).format('DD/MM/YYYY')}`}
+      </div>
+
+      <div
+        data-testid="seller_order_details__element-order-details-label-delivery-status"
       >
-        Marcar como Entregue
-      </button>
+        {`${status.toUpperCase()}`}
+      </div>
+
+      <div data-testid="seller_order_details__button-preparing-check">
+        PREPARAR PEDIDO
+      </div>
+
+      <div data-testid="seller_order_details__button-dispatch-check">
+        SAIU PARA ENTREGA
+      </div>
+
       {products.map((elem, index) => (
-        <OrderDetailCard key={ index } index={ index } { ...elem } />
+        <OrderDetailCard
+          key={ index }
+          index={ index }
+          userRole="seller"
+          { ...elem }
+        />
       ))}
+
       <p data-testid="customer_order_details__element-order-total-price">
         {`${Number(totalPrice).toFixed(2).replace('.', ',')}`}
       </p>
