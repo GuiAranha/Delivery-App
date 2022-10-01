@@ -39,11 +39,6 @@ async function createSalesProducts(payload) {
   return data;
 }
 
-async function getAllSales() {
-  const response = await Sales.findAll();
-  return response;
-}
-
 const transform = (response) => {
   const { totalPrice, saleDate, status, products, seller } = response;
   const newProducts = products.map(
@@ -75,4 +70,4 @@ const getSaleById = async (id) => {
   return transform(response);
 };
 
-module.exports = { createSale, createSalesProducts, getAllSales, getSaleById };
+module.exports = { createSale, createSalesProducts, getSaleById };

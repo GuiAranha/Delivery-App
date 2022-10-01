@@ -14,7 +14,14 @@ function Login() {
     const user = localStorage.getItem('user');
 
     if (user) {
-      navigate('/customer/products');
+      const { role } = JSON.parse(user);
+      if (role === 'customer') {
+        navigate('/customer/products');
+      }
+
+      if (role === 'seller') {
+        navigate('/seller/orders');
+      }
     }
   }, []);
 
@@ -37,7 +44,16 @@ function Login() {
       token: response.data.token,
     };
     localStorage.setItem('user', JSON.stringify(dataUser));
-    navigate('/customer/products');
+
+    const { role } = dataUser;
+
+    if (role === 'customer') {
+      navigate('/customer/products');
+    }
+
+    if (role === 'seller') {
+      navigate('/seller/orders');
+    }
   };
 
   return (
