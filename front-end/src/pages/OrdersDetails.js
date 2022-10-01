@@ -12,20 +12,28 @@ function OrdersDetails() {
   const [saleState, setSaleState] = useState({ products: [], status: '' });
 
   useEffect(() => {
-    getSaleById(id, setSaleState);
+    const sales = localStorage.getItem('sales');
+    if (!sales) {
+      getSaleById(id, setSaleState);
+    } else {
+      setSaleState(JSON.parse(sales));
+    }
   }, []);
 
   const { totalPrice, saleDate, status, products } = saleState;
 
   const lengthIdSale = 4;
 
+  const emTransito = 'Em Trânsito';
+  const pendente = 'Pendente';
+  const entregue = 'Entregue';
+  const preparando = 'Preparando';
+
   return (
     <main>
       <NavBar userRole="seller" />
       <p>Estou em OrderDetails de pessoa vendedora</p>
-      <div
-        data-testid="seller_order_details__element-order-details-label-order-id"
-      >
+      <div data-testid="seller_order_details__element-order-details-label-order-id">
         PEDIDO:
         {' '}
         {`${id.padStart(lengthIdSale, '0')}`}
@@ -44,6 +52,19 @@ function OrdersDetails() {
       <button
         type="button"
         data-testid="seller_order_details__button-preparing-check"
+        disabled={
+          status === preparando
+          || status === emTransito
+          || status === entregue
+        }
+        onClick={ (e) => {
+          e.preventDefault();
+          setSaleState({ ...saleState, status: preparando });
+          localStorage.setItem(
+            'sales',
+            JSON.stringify({ ...saleState, status: preparando }),
+          );
+        } }
       >
         PREPARAR PEDIDO
       </button>
@@ -51,6 +72,19 @@ function OrdersDetails() {
       <button
         type="button"
         data-testid="seller_order_details__button-dispatch-check"
+        disabled={
+          status === pendente
+          || status === emTransito
+          || status === entregue
+        }
+        onClick={ (e) => {
+          e.preventDefault();
+          setSaleState({ ...saleState, status: emTransito });
+          localStorage.setItem(
+            'sales',
+            JSON.stringify({ ...saleState, status: emTransito }),
+          );
+        } }
       >
         SAIU PARA ENTREGA
       </button>
