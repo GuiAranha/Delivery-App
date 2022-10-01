@@ -29,7 +29,6 @@ const userCreate = async (user) => {
 
 const userSearch = async (role) => {
   const response = await User.findAll({ where: { role } });
-  console.log(response);
   return response;
 };
 

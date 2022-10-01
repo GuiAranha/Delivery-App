@@ -52,3 +52,10 @@ export const registerSaleProducts = async (payload, authorization) => {
     .catch((error) => error.response.data || magicNumber);
   return response;
 };
+
+export const getAllSales = (setState) => {
+  const data = instance
+    .get('customer/orders')
+    .then((response) => setState(response.data));
+  return data;
+};

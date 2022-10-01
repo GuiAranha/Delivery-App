@@ -10,7 +10,13 @@ const createSalesProductsController = async (req, res) => {
   return res.status(201).json(data);
 };
 
+const getAllSalesController = async (req, res) => {
+  const data = await salesService.getAllSales(req.body);
+  return res.status(200).json(data);
+};
+
 module.exports = {
   createSaleController,
   createSalesProductsController,
+  getAllSalesController,
 };

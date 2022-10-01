@@ -39,4 +39,9 @@ async function createSalesProducts(payload) {
   return data;
 }
 
-module.exports = { createSale, createSalesProducts };
+async function getAllSales() {
+  const response = await Sales.findAll();
+  return response;
+}
+
+module.exports = { createSale, createSalesProducts, getAllSales };

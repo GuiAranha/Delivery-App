@@ -1,29 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import CardOrder from '../components/CardOrder';
 import NavBar from '../components/NavBar';
+import { getAllSales } from '../helpers/api';
 import styles from '../styles/CardsOrders.module.css';
 
 function Order() {
-  const orders = [
-    {
-      id: '1',
-      status: 'pendente',
-      date: '08/04/21',
-      price: '23,80',
-    },
-    {
-      id: '2',
-      status: 'preparando',
-      date: '08/04/21',
-      price: '14,20',
-    },
-    {
-      id: '3',
-      status: 'entregue',
-      date: '07/04/21',
-      price: '28,46',
-    },
-  ];
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    getAllSales(setOrders);
+  }, []);
+
   return (
     <main>
       <NavBar />
