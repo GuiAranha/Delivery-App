@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const { Sales, SalesProducts } = require('../database/models');
+const { Sales, User, SalesProducts, Products } = require('../database/models');
 const ErrorHandler = require('../helpers/errorHandler');
 
 const schemaSale = Joi.object({
@@ -44,4 +44,23 @@ async function getAllSales() {
   return response;
 }
 
-module.exports = { createSale, createSalesProducts, getAllSales };
+async function getSaleById(id) {
+  const response = await Sales.findOne({
+    where: { id },
+    attributes: ['id', 'totalPrice', 'saleDate', 'status'],
+    include: [
+      {
+        model: Products,
+        as: 'products',
+        attributes: ['id', 'name', 'price'],
+        through: {
+          attributes: ['quantity'],
+        },
+      },
+      { model: User, as: 'seller', attributes: ['name'] },
+    ],
+  });
+  return response;
+}
+
+module.exports = { createSale, createSalesProducts, getAllSales, getSaleById };
