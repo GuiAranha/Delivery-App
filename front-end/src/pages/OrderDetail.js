@@ -45,7 +45,7 @@ function OrderDetail() {
         Marcar como Entregue
       </button>
       {products.map((elem, index) => (
-        <OrderDetailCard key={ index } index={ index } { ...elem } />
+        <OrderDetailCard key={ index } index={ index } userRole="customer" { ...elem } />
       ))}
       <p data-testid="customer_order_details__element-order-total-price">
         {`${Number(totalPrice).toFixed(2).replace('.', ',')}`}

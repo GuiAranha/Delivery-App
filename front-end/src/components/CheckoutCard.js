@@ -12,7 +12,6 @@ function CheckoutCard(props) {
     const newCart = [...cart];
     const ind = newCart.findIndex((cartItem) => cartItem.name === name);
     newCart.splice(ind, 1);
-    console.log(newCart);
     localStorage.setItem('cart', JSON.stringify(newCart));
     setCart(newCart);
   };

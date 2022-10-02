@@ -8,6 +8,7 @@ import { getAllProducts } from '../helpers/api';
 function Products() {
   const { cart } = useContext(AppContext);
   const [allProducts, setAllProducts] = useState([]);
+  const [userRole, setUserRole] = useState('');
   const [totalCart, setTotalCart] = useState(0);
 
   const navigate = useNavigate();
@@ -20,7 +21,11 @@ function Products() {
     return total;
   };
 
-  useEffect(() => getAllProducts(setAllProducts), []);
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    setUserRole(user.role);
+    getAllProducts(setAllProducts);
+  }, []);
 
   useEffect(() => {
     const totalPrice = calculatePrice(cart);
@@ -29,7 +34,7 @@ function Products() {
 
   return (
     <main>
-      <NavBar />
+      <NavBar userRole={ userRole } />
       <section>
         {allProducts.map((elem, index) => (
           <Card key={ index } { ...elem } />
@@ -42,13 +47,8 @@ function Products() {
           data-testid="customer_products__button-cart"
           disabled={ totalCart === 0 }
         >
-          <span
-            data-testid="customer_products__checkout-bottom-value"
-          >
-            {`${totalCart
-              .toFixed(2)
-              .replace('.', ',')}`}
-
+          <span data-testid="customer_products__checkout-bottom-value">
+            {`${totalCart.toFixed(2).replace('.', ',')}`}
           </span>
         </button>
       </div>

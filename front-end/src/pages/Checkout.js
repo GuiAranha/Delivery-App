@@ -13,6 +13,7 @@ function Checkout() {
   const [totalCart, setTotalCart] = useState(0);
   const [allSellers, setAllSellers] = useState([]);
   const [seller, setSeller] = useState(0);
+  const [userRole, setUserRole] = useState('');
   const [userId, setUserId] = useState('');
   const [token, setToken] = useState('');
 
@@ -40,14 +41,16 @@ function Checkout() {
     const {
       email,
       token: tokenFromStorage,
+      role,
     } = JSON.parse(localStorage.getItem('user'));
     setToken(tokenFromStorage);
+    setUserRole(role);
     getUserId(setUserId, { email });
   }, []);
 
   return (
     <main>
-      <NavBar />
+      <NavBar userRole={ userRole } />
 
       <p>Estou em Checkout</p>
 
@@ -103,15 +106,15 @@ function Checkout() {
             onClick={ async (e) => {
               e.preventDefault();
               const obj = {
-                userId: userId.id,
+                userId,
                 sellerId: seller,
                 totalPrice: totalCart,
                 deliveryAddress,
                 deliveryNumber,
                 status: 'Pendente',
               };
-              const { data } = await registerSale(obj, token);
-              const { id: saleId } = data;
+              const response = await registerSale(obj, token);
+              const { id: saleId } = response.data;
               const payload = cart.map(({ id: productId, quantity }) => ({
                 saleId, productId, quantity,
               }));

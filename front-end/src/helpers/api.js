@@ -33,7 +33,7 @@ export const getAllByRole = (setState, role) => {
 export const getUserId = (setState, { email }) => {
   const data = instance
     .post('user', { email })
-    .then((response) => setState(response.data));
+    .then((response) => setState(response.data.id));
   return data;
 };
 
@@ -53,9 +53,9 @@ export const registerSaleProducts = async (payload, authorization) => {
   return response;
 };
 
-export const getAllSales = (setState) => {
+export const getAllOrders = (setState, { id, role }) => {
   const data = instance
-    .get('customer/orders')
+    .post('orders', { id, role })
     .then((response) => setState(response.data));
   return data;
 };
@@ -63,4 +63,12 @@ export const getAllSales = (setState) => {
 export const getSaleById = (id, setState) => {
   const data = instance.get(`sales/${id}`).then((response) => setState(response.data));
   return data;
+};
+
+export const getSaleByEmail = async (setState, { email }) => {
+  const { id, role } = await instance
+    .post('user', { email })
+    .then((response) => response.data);
+
+  return getAllOrders(setState, { id, role });
 };

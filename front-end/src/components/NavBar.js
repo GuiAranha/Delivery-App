@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import styles from '../styles/NavBar.module.css';
 
-function NavBar() {
+function NavBar(props) {
   const [name, setName] = useState('');
   const navigate = useNavigate();
+
+  const { userRole } = props;
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -24,14 +27,14 @@ function NavBar() {
     <nav className={ styles.mainContainer }>
       <div className={ styles.leftContainer }>
         <Link
-          to="/customer/products"
+          to={ `/${userRole}/products` }
           data-testid="customer_products__element-navbar-link-products"
           className={ styles.products }
         >
           PRODUTOS
         </Link>
         <Link
-          to="/customer/orders"
+          to={ `/${userRole}/orders` }
           data-testid="customer_products__element-navbar-link-orders"
           className={ styles.orders }
         >
@@ -39,15 +42,9 @@ function NavBar() {
         </Link>
       </div>
       <div className={ styles.rigthContainer }>
-        <div
-          // data-testid="customer_products__element-navbar-user-full-name"
-          className={ styles.userName }
-        >
-          <div
-            data-testid="customer_products__element-navbar-user-full-name"
-          >
-            { name }
-
+        <div className={ styles.userName }>
+          <div data-testid="customer_products__element-navbar-user-full-name">
+            {name}
           </div>
         </div>
         <Link
@@ -62,5 +59,9 @@ function NavBar() {
     </nav>
   );
 }
+
+NavBar.propTypes = {
+  userRole: PropTypes.string.isRequired,
+};
 
 export default NavBar;
