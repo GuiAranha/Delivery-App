@@ -36,62 +36,71 @@ function Register() {
   };
 
   return (
-    <div className={styles.registerOuter}>
-      <main className={styles.registerMain}>
-        <div className={styles.registerWrapper}>
-          <div className={styles.logo}>
-            <h1 className="title">Cadastro</h1>
-          </div>
-          <div className={styles.form}>
-            <label className={styles.labelInput}>Nome</label>
+    <div className={ styles.registerOuter }>
+      <main className={ styles.registerMain }>
+        {/* <div className={styles.registerWrapper}> */}
+        <div className={ styles.logo }>
+          <h1 className="title">Cadastro</h1>
+        </div>
+        <form className={ (styles.form, styles.registerWrapper) }>
+          <label className={ styles.labelInput } htmlFor="input-name">
+            Nome
             <input
-              className={styles.inputPage}
+              className={ styles.inputPage }
               type="text"
               data-testid="common_register__input-name"
-              value={name}
-              onChange={({ target: { value } }) => setName(value)}
+              id="input-name"
+              value={ name }
+              onChange={ ({ target: { value } }) => setName(value) }
             />
-            <label className={styles.labelInput}>Email</label>
+          </label>
+
+          <label className={ styles.labelInput } htmlFor="input-email">
+            Email
             <input
-              className={styles.inputPage}
+              className={ styles.inputPage }
               type="text"
               data-testid="common_register__input-email"
-              value={email}
-              onChange={({ target: { value } }) => setEmail(value)}
+              id="input-email"
+              value={ email }
+              onChange={ ({ target: { value } }) => setEmail(value) }
             />
-            <label className={styles.labelInput}>Senha</label>
+          </label>
+          <label className={ styles.labelInput } htmlFor="input-password">
+            Senha
             <input
-              className={styles.inputPage}
+              className={ styles.inputPage }
               type="password"
               data-testid="common_register__input-password"
-              value={password}
-              onChange={({ target: { value } }) => setPassword(value)}
+              id="input-password"
+              value={ password }
+              onChange={ ({ target: { value } }) => setPassword(value) }
             />
-            <button
-              className={styles.btnRegister}
-              type="submit"
-              data-testid="common_register__button-register"
-              disabled={
-                !(
-                  regex.test(email) &&
-                  password.length >= six &&
-                  name.length >= twelve
-                )
-              }
-              onClick={async (e) => {
-                e.preventDefault();
-                await register({ name, email, password });
-              }}
-            >
-              Registrar
-            </button>
-          </div>
-        </div>
+          </label>
+          <button
+            className={ styles.btnRegister }
+            type="submit"
+            data-testid="common_register__button-register"
+            disabled={
+              !(
+                regex.test(email)
+                && password.length >= six
+                && name.length >= twelve)
+            }
+            onClick={ async (e) => {
+              e.preventDefault();
+              await register({ name, email, password });
+            } }
+          >
+            Registrar
+          </button>
+        </form>
+        {/* </div> */}
       </main>
-      <footer className={styles.footer}>
+      <footer className={ styles.footer }>
         <p
-          className={styles.message}
-          hidden={hidden}
+          className={ styles.message }
+          hidden={ hidden }
           data-testid="common_register__element-invalid_register"
         >
           {errorMessage}

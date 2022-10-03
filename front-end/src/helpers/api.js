@@ -60,8 +60,11 @@ export const getAllOrders = (setState, { id, role }) => {
   return data;
 };
 
-export const getSaleById = (id, setState) => {
-  const data = instance.get(`sales/${id}`).then((response) => setState(response.data));
+export const getSaleById = (id) => {
+  const data = instance.get(`sales/${id}`).then((response) => {
+    console.log(response.data);
+    return response.data;
+  });
   return data;
 };
 
@@ -71,4 +74,12 @@ export const getSaleByEmail = async (setState, { email }) => {
     .then((response) => response.data);
 
   return getAllOrders(setState, { id, role });
+};
+
+export const updateSale = async ({ id, status }) => {
+  const data = await instance
+    .put(`sales/${id}`, { status })
+    .then((response) => response.data);
+
+  return data;
 };

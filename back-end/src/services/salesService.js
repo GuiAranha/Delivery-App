@@ -70,4 +70,16 @@ const getSaleById = async (id) => {
   return transform(response);
 };
 
-module.exports = { createSale, createSalesProducts, getSaleById };
+const updateStatus = async (status, id) => {
+  const response = await Sales.update({ status }, {
+    where: { id },
+  });
+  return response;
+};
+
+module.exports = {
+  createSale,
+  createSalesProducts,
+  getSaleById,
+  updateStatus,
+};

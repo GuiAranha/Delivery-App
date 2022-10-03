@@ -3,18 +3,21 @@ import { useParams } from 'react-router-dom';
 
 import NavBar from '../components/NavBar';
 import OrderDetailCard from '../components/OrderDetailCard';
-import { getSaleById } from '../helpers/api';
+import { getSaleById, updateSale } from '../helpers/api';
 
 const moment = require('moment');
 
 function OrdersDetails() {
   const { id } = useParams();
-  const [saleState, setSaleState] = useState({ products: [], status: '' });
+  const [saleState, setSaleState] = useState({ products: [], status: 'Entregue' });
 
   useEffect(() => {
     const sales = localStorage.getItem('sales');
     if (!sales) {
-      getSaleById(id, setSaleState);
+      getSaleById(id).then((response) => {
+        console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', response);
+        setSaleState(response);
+      });
     } else {
       setSaleState(JSON.parse(sales));
     }
@@ -64,6 +67,7 @@ function OrdersDetails() {
             'sales',
             JSON.stringify({ ...saleState, status: preparando }),
           );
+          updateSale({ id, status: preparando });
         } }
       >
         PREPARAR PEDIDO
@@ -84,6 +88,7 @@ function OrdersDetails() {
             'sales',
             JSON.stringify({ ...saleState, status: emTransito }),
           );
+          updateSale({ id, status: emTransito });
         } }
       >
         SAIU PARA ENTREGA

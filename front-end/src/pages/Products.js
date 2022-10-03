@@ -36,21 +36,23 @@ function Products() {
   return (
     <main>
       <NavBar userRole={ userRole } />
-      <section className={styles.containerCards}>
+      <section className={ styles.containerCards }>
         {allProducts.map((elem, index) => (
-          <Card key={index} {...elem} />
+          <Card key={ index } { ...elem } />
         ))}
       </section>
-      <div className= { styles.containerBtn }>
+      <div className={ styles.containerBtn }>
         <button
-          className= { styles.totalPrice }
+          className={ styles.totalPrice }
           type="button"
-          onClick={() => navigate("/customer/checkout")}
+          onClick={ () => navigate('/customer/checkout') }
           data-testid="customer_products__button-cart"
-          disabled={totalCart === 0}
+          disabled={ totalCart === 0 }
         >
           <span data-testid="customer_products__checkout-bottom-value">
-            Ver Carrinho: R$ {`${totalCart.toFixed(2).replace(".", ",")}`}
+            Ver Carrinho: R$
+            {' '}
+            {`${totalCart.toFixed(2).replace('.', ',')}`}
           </span>
         </button>
       </div>

@@ -83,7 +83,7 @@ function Checkout() {
             Endereço
             <input
               data-testid="customer_checkout__input-address"
-              id="addres"
+              id="address"
               type="text"
               value={ deliveryAddress }
               onChange={ (e) => setDeliveryAddress(e.target.value) }
