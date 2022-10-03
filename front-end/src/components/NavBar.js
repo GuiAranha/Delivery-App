@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 import styles from '../styles/NavBar.module.css';
 
 function NavBar(props) {
-  const { userRole } = props;
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const navigate = useNavigate();
+  const { userRole } = props;
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
@@ -26,24 +26,24 @@ function NavBar(props) {
     <nav className={styles.mainContainer}>
       <div className={styles.leftContainer}>
         <Link
-          to={`/${userRole}/products`}
+          to={ `/${userRole}/products` }
+
           data-testid="customer_products__element-navbar-link-products"
           className={styles.products}
         >
           PRODUTOS
         </Link>
         <Link
-          to={`/${userRole}/orders`}
+          to={ `/${userRole}/orders` }
           data-testid="customer_products__element-navbar-link-orders"
           className={styles.orders}
         >
           MEUS PEDIDOS
         </Link>
       </div>
-      <div className={styles.rigthContainer}>
-        <div
-          className={styles.userName}
-        >
+      <div className={ styles.rigthContainer }>
+        <div className={ styles.userName }>
+
           <div data-testid="customer_products__element-navbar-user-full-name">
             {name}
           </div>

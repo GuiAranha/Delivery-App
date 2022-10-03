@@ -11,7 +11,9 @@ function Products() {
   const [allProducts, setAllProducts] = useState([]);
   const [userRole, setUserRole] = useState('');
   const [totalCart, setTotalCart] = useState(0);
+
   const navigate = useNavigate();
+
   const calculatePrice = (item) => {
     const total = item.reduce((acc, cartItem) => {
       acc += cartItem.quantity * cartItem.price;
@@ -21,11 +23,10 @@ function Products() {
   };
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem('user'));
     setUserRole(user.role);
     getAllProducts(setAllProducts);
   }, []);
-
 
   useEffect(() => {
     const totalPrice = calculatePrice(cart);
@@ -34,7 +35,7 @@ function Products() {
 
   return (
     <main>
-      <NavBar userRole={userRole} />
+      <NavBar userRole={ userRole } />
       <section className={styles.containerCards}>
         {allProducts.map((elem, index) => (
           <Card key={index} {...elem} />

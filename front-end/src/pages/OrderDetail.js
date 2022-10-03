@@ -1,67 +1,55 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+
 import NavBar from '../components/NavBar';
 import OrderDetailCard from '../components/OrderDetailCard';
+import { getSaleById } from '../helpers/api';
+
+const moment = require('moment');
 
 function OrderDetail() {
-  const orderMock = {
-    id: 1,
-    seller: 'nome do vendedor',
-    data: '01/01/2022',
-    status: 'entregue',
-    itens: [{
-      name: 'teste',
-      price: 75,
-      quantity: 2,
-      id: 1,
-    },
-    {
-      name: 'aaaaaa',
-      price: 30,
-      quantity: 2,
-      id: 2,
-    }],
-  };
-
   const { id } = useParams();
+  const [saleState, setSaleState] = useState({ products: [] });
+
+  useEffect(() => {
+    getSaleById(id, setSaleState);
+  }, []);
+
+  const { totalPrice, saleDate, status, seller, products } = saleState;
+
+  const date = new Date(saleDate);
 
   return (
     <main>
       <NavBar />
-      <p>Estou em Checkout</p>
-      <section>
-        <p data-testid="customer_order_details__element-order-details-label-order-id">
-          {id}
-        </p>
-        <p data-testid="customer_order_details__element-order-details-label-seller-name">
-          {orderMock.seller}
-        </p>
-        <p data-testid="customer_order_details__element-order-details-label-order-date">
-          {orderMock.data}
-        </p>
-        <p
-          data-testid={ `customercustomer_order_details__element-order-details-
-          label-delivery-status${id}` }
-        >
-          {orderMock.status}
-        </p>
-        <button
-          data-testid="customer_order_details__button-delivery-check"
-          type="button"
-        >
-          Marcar como Entregue
-        </button>
-        {orderMock.itens.map((elem, index) => (
-          <OrderDetailCard key={ index } index={ index } { ...elem } />
-        ))}
-        <p data-testid="customer_order_details__element-order-total-price">
-          Total: R$
-          {orderMock.itens.reduce(
-            (acc, obj) => acc + obj.quantity * obj.price,
-            0,
-          )}
-        </p>
-      </section>
+      <p>Estou em OrderDetails</p>
+      <p data-testid="customer_order_details__element-order-details-label-order-id">
+        {id}
+      </p>
+      <p data-testid="customer_order_details__element-order-details-label-seller-name">
+        {seller}
+      </p>
+      <p data-testid="customer_order_details__element-order-details-label-order-date">
+        {`${moment(date).format('DD/MM/YYYY')}`}
+      </p>
+      <p
+        data-testid="customer_order_details__element-order-details-label-delivery-status"
+      >
+        {status}
+      </p>
+      <button
+        data-testid="customer_order_details__button-delivery-check"
+        type="button"
+        disabled
+      >
+        Marcar como Entregue
+      </button>
+      {products.map((elem, index) => (
+        <OrderDetailCard key={ index } index={ index } userRole="customer" { ...elem } />
+      ))}
+      <p data-testid="customer_order_details__element-order-total-price">
+        {`${Number(totalPrice).toFixed(2).replace('.', ',')}`}
+      </p>
     </main>
   );
 }

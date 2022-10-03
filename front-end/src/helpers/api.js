@@ -33,7 +33,7 @@ export const getAllByRole = (setState, role) => {
 export const getUserId = (setState, { email }) => {
   const data = instance
     .post('user', { email })
-    .then((response) => setState(response.data));
+    .then((response) => setState(response.data.id));
   return data;
 };
 
@@ -43,4 +43,32 @@ export const registerSale = async (sale, authorization) => {
     .post('sales', sale, { headers: { authorization } })
     .catch((error) => error.response.data || magicNumber);
   return response;
+};
+
+export const registerSaleProducts = async (payload, authorization) => {
+  const magicNumber = 404;
+  const response = await instance
+    .post('sales_products', payload, { headers: { authorization } })
+    .catch((error) => error.response.data || magicNumber);
+  return response;
+};
+
+export const getAllOrders = (setState, { id, role }) => {
+  const data = instance
+    .post('orders', { id, role })
+    .then((response) => setState(response.data));
+  return data;
+};
+
+export const getSaleById = (id, setState) => {
+  const data = instance.get(`sales/${id}`).then((response) => setState(response.data));
+  return data;
+};
+
+export const getSaleByEmail = async (setState, { email }) => {
+  const { id, role } = await instance
+    .post('user', { email })
+    .then((response) => response.data);
+
+  return getAllOrders(setState, { id, role });
 };

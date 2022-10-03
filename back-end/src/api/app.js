@@ -8,6 +8,7 @@ const { userRoute } = require('../routes/userRoute');
 const { loginRoute } = require('../routes/loginRoute');
 const { productRoute } = require('../routes/productRoute');
 const { salesRoute } = require('../routes/salesRoute');
+const { ordersRoute } = require('../routes/ordersRoute');
 const { errorMiddleware } = require('../middlewares/errorMiddleware');
 
 const app = express();
@@ -21,6 +22,7 @@ app.use(userRoute);
 app.use(loginRoute);
 app.use(productRoute);
 app.use(salesRoute);
+app.use(ordersRoute);
 app.use(errorMiddleware);
 
 module.exports = app;
