@@ -1,0 +1,27 @@
+.containerCards {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 100px;
+  padding-left: 100px;
+  padding-right: 15px;
+}
+
+.totalPrice {
+  background-color : #563f51;
+  /* border-color: #998c95; */
+  border-radius: 4px;
+  color: white;
+  height: 60px;
+  padding: 10px 20px;
+  width: 200px;
+}
+
+.containerBtn {
+  bottom: -4px;
+  position: fixed;
+  right: 10px;
+}
+
+.totalPrice:disabled {
+  background-color: #998c95;
+}

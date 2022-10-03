@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from '../context/AppContext';
+import styles from '../styles/Quantity.module.css';
 
 function Quantity(productInfos) {
   const { cart, setCart } = useContext(AppContext);
@@ -33,28 +34,29 @@ function Quantity(productInfos) {
     console.log(Number(value));
   };
   return (
-    <div>
+    <div className= { styles.form }>
       <button
-        className="cart-btn"
+        className={styles.cart_btn}
         type="button"
-        data-testid={ `customer_products__button-card-rm-item-${product.id}` }
-        onClick={ handleDecrement }
+        data-testid={`customer_products__button-card-rm-item-${product.id}`}
+        onClick={handleDecrement}
       >
         -
       </button>
       <input
-        className="quantity"
-        type="number"
-        min={ 0 }
-        data-testid={ `customer_products__input-card-quantity-${product.id}` }
-        value={ quantity }
-        onChange={ setValue }
+        className= { styles.quantity }
+        type="text"
+        inputmode="numeric"
+        min={0}
+        data-testid={`customer_products__input-card-quantity-${product.id}`}
+        value={quantity}
+        onChange={setValue}
       />
       <button
-        className="cart-btn"
+        className={styles.cart_btn}
         type="button"
-        data-testid={ `customer_products__button-card-add-item-${product.id}` }
-        onClick={ handleIncrement }
+        data-testid={`customer_products__button-card-add-item-${product.id}`}
+        onClick={handleIncrement}
       >
         +
       </button>

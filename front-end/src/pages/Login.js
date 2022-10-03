@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from '../images/deliver.png';
 import { loginUser } from '../helpers/api';
+import styles from '../styles/Login.module.css';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -57,58 +57,67 @@ function Login() {
   };
 
   return (
-    <main>
-      <div className="container-logo">
-        <img className="logo" src={ logo } alt="logo" />
-        <h1 className="title">Delivery</h1>
-      </div>
-      <form className="container">
-        <input
-          className="input-login"
-          type="email"
-          placeholder="Email"
-          data-testid="common_login__input-email"
-          value={ email }
-          onChange={ ({ target: { value } }) => setEmail(value) }
-        />
-        <input
-          className="input-login"
-          type="password"
-          placeholder="Password"
-          data-testid="common_login__input-password"
-          value={ password }
-          onChange={ ({ target: { value } }) => setPassword(value) }
-        />
-      </form>
-      <div className="container-btn">
-        <button
-          className="btn-lg"
-          type="submit"
-          data-testid="common_login__button-login"
-          disabled={ !(regex.test(email) && password.length >= six) }
-          onClick={ async (e) => {
-            e.preventDefault();
-            await validateLogin({ email, password });
-          } }
-        >
-          LOGIN
-        </button>
-        <button
-          className="btn-rg"
-          type="button"
-          data-testid="common_login__button-register"
-          onClick={ () => navigate('/register') }
-        >
-          REGISTRAR
-        </button>
-      </div>
-      <p
-        hidden={ hidden }
-        data-testid="common_login__element-invalid-email"
-      >
-        {errorMessage}
-      </p>
-    </main>
+    <div className={styles.loginOuter}>
+      <main className={styles.loginMain}>
+        <div className={styles.loginWrapper}>
+          <div className={styles.logo}>
+            <h1>Delivery</h1>
+          </div>
+          <div className={styles.loginPage}>
+            <div className={styles.form}>
+              <label className={styles.labelInput}>Email Address</label>
+              <input
+                className={styles.inputPage}
+                type="email"
+                data-testid="common_login__input-email"
+                value={email}
+                onChange={({ target: { value } }) => setEmail(value)}
+              />
+              <label className={styles.labelInput}>Password</label>
+              <input
+                className={styles.inputPage}
+                type="password"
+                data-testid="common_login__input-password"
+                value={password}
+                onChange={({ target: { value } }) => setPassword(value)}
+              />
+              <button
+                className={ styles.btnLogin}
+                type="submit"
+                data-testid="common_login__button-login"
+                disabled={!(regex.test(email) && password.length >= six)}
+                onClick={async (e) => {
+                  e.preventDefault();
+                  await validateLogin({ email, password });
+                }}
+              >
+                Login
+              </button>
+            </div>
+            <div className={ styles.end }>
+              <span className={styles.separator}></span>
+
+              <button
+                className={styles.btn_rg}
+                type="button"
+                data-testid="common_login__button-register"
+                onClick={() => navigate('/register')}
+              >
+                Ainda não tenho conta
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+      <footer className={ styles.footer }>
+        <p
+          className={styles.message}
+          hidden={hidden}
+          data-testid="common_login__element-invalid-email">
+          {errorMessage}
+        </p>
+      </footer>
+    </div>
   );
 }
 

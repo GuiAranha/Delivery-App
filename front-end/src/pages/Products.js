@@ -4,6 +4,7 @@ import AppContext from '../context/AppContext';
 import Card from '../components/Card';
 import NavBar from '../components/NavBar';
 import { getAllProducts } from '../helpers/api';
+import styles from '../styles/Products.module.css';
 
 function Products() {
   const { cart } = useContext(AppContext);
@@ -35,20 +36,21 @@ function Products() {
   return (
     <main>
       <NavBar userRole={ userRole } />
-      <section>
+      <section className={styles.containerCards}>
         {allProducts.map((elem, index) => (
-          <Card key={ index } { ...elem } />
+          <Card key={index} {...elem} />
         ))}
       </section>
-      <div>
+      <div className= { styles.containerBtn }>
         <button
+          className= { styles.totalPrice }
           type="button"
-          onClick={ () => navigate('/customer/checkout') }
+          onClick={() => navigate("/customer/checkout")}
           data-testid="customer_products__button-cart"
-          disabled={ totalCart === 0 }
+          disabled={totalCart === 0}
         >
           <span data-testid="customer_products__checkout-bottom-value">
-            {`${totalCart.toFixed(2).replace('.', ',')}`}
+            Ver Carrinho: R$ {`${totalCart.toFixed(2).replace(".", ",")}`}
           </span>
         </button>
       </div>

@@ -1,0 +1,142 @@
+* {
+  margin: 0;
+}
+
+.loginOuter {
+  align-items: center;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  padding-top: 60px;
+
+}
+
+.loginMain {
+  background: white;
+  border: 1px solid gainsboro;
+  border-radius: 4px;
+  box-shadow: 0 4px 25px rgb(0 0 0 / 10%);
+  margin: 0 auto;
+  position: relative;
+  width: 470px;
+}
+
+.loginWrapper {
+  height: 608px;
+  margin-top: 24px;
+  padding: 15px 60px 30px;
+  width: 348px;
+}
+
+.logo {
+  color: #f45d48;
+  display: inline-block;
+  margin-bottom: 24px;
+  text-align: center;
+  vertical-align: middle;
+  width: 348px;
+}
+
+.loginPage {
+  min-height: 313px;
+  width: 100%;
+}
+
+.labelInput {
+  color: #1c1c1c;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.02rem;
+  line-height: 2.4rem;
+}
+
+.form {
+  display: grid;
+  max-width: 348px;
+  padding: 12px 0;
+  row-gap: 1.2rem;
+}
+
+.inputPage {
+  background-color: #f4f4f3;
+  border: none;
+  border-bottom: 1px solid #998c95;
+  border-radius: 0.4rem  0.4rem 0 0;
+  color: #1c1c1c;
+  height: 24px;
+  margin: 0;
+  padding: 10px 12px;
+  width: 324px;
+}
+
+.inputPage:focus {
+  border-bottom: 1px solid #563f51;
+  box-shadow: 0 0 0 0;
+  outline: 0;
+}
+
+.btnLogin {
+  background-color: #563f51;
+  border: 0;
+  border-radius: 0.4rem;
+  color: white;
+  cursor: pointer;
+  font-size: 1.6rem;
+  height: 48px;
+  margin: 0;
+  padding: 12px 24px;
+  text-align: center;
+  width: 100%;
+}
+
+.btnLogin:disabled {
+  background-color: #998c95;
+}
+
+.separator {
+  border: 0;
+  border-top: 1px solid  #ccc;
+  color: #ccc;
+  display: flex;
+  height: 1px;
+  margin-bottom: 16px;
+  overflow: visible;
+  padding: 0;
+  position: relative;
+  text-align: center;
+
+}
+
+.btn_rg {
+  background-color: white;
+  border: none;
+  color: #757575;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.btn_rg:hover {
+  color: #563f51;
+}
+
+.end {
+  text-align: center;
+}
+
+.message {
+  color: #563f51;
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 2rem;
+  opacity: 0.85;
+}
+
+.footer {
+  align-items: center;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  margin-top: 20px;
+  width: 470px;
+}

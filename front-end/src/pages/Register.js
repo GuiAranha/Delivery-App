@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { registerUser, loginUser } from '../helpers/api';
+import styles from '../styles/Register.module.css';
 
 function Register() {
   const [name, setName] = useState('');
@@ -35,59 +36,68 @@ function Register() {
   };
 
   return (
-    <main>
-      <div className="container-title">
-        <h1 className="title">Cadastro</h1>
-      </div>
-      <form className="container">
-        <input
-          className="input-register"
-          type="text"
-          placeholder="Seu nome"
-          data-testid="common_register__input-name"
-          value={ name }
-          onChange={ ({ target: { value } }) => setName(value) }
-        />
-        <input
-          className="input-register"
-          type="text"
-          placeholder="seu-email@site.com.br"
-          data-testid="common_register__input-email"
-          value={ email }
-          onChange={ ({ target: { value } }) => setEmail(value) }
-        />
-        <input
-          className="input-register"
-          type="password"
-          placeholder="**********"
-          data-testid="common_register__input-password"
-          value={ password }
-          onChange={ ({ target: { value } }) => setPassword(value) }
-        />
-      </form>
-      <div className="container-btn">
-        <button
-          className="btn-rg"
-          type="submit"
-          data-testid="common_register__button-register"
-          disabled={
-            !(
-              regex.test(email)
-              && password.length >= six
-              && name.length >= twelve)
-          }
-          onClick={ async (e) => {
-            e.preventDefault();
-            await register({ name, email, password });
-          } }
+    <div className={styles.registerOuter}>
+      <main className={styles.registerMain}>
+        <div className={styles.registerWrapper}>
+          <div className={styles.logo}>
+            <h1 className="title">Cadastro</h1>
+          </div>
+          <div className={styles.form}>
+            <label className={styles.labelInput}>Nome</label>
+            <input
+              className={styles.inputPage}
+              type="text"
+              data-testid="common_register__input-name"
+              value={name}
+              onChange={({ target: { value } }) => setName(value)}
+            />
+            <label className={styles.labelInput}>Email</label>
+            <input
+              className={styles.inputPage}
+              type="text"
+              data-testid="common_register__input-email"
+              value={email}
+              onChange={({ target: { value } }) => setEmail(value)}
+            />
+            <label className={styles.labelInput}>Senha</label>
+            <input
+              className={styles.inputPage}
+              type="password"
+              data-testid="common_register__input-password"
+              value={password}
+              onChange={({ target: { value } }) => setPassword(value)}
+            />
+            <button
+              className={styles.btnRegister}
+              type="submit"
+              data-testid="common_register__button-register"
+              disabled={
+                !(
+                  regex.test(email) &&
+                  password.length >= six &&
+                  name.length >= twelve
+                )
+              }
+              onClick={async (e) => {
+                e.preventDefault();
+                await register({ name, email, password });
+              }}
+            >
+              Registrar
+            </button>
+          </div>
+        </div>
+      </main>
+      <footer className={styles.footer}>
+        <p
+          className={styles.message}
+          hidden={hidden}
+          data-testid="common_register__element-invalid_register"
         >
-          CADASTRAR
-        </button>
-      </div>
-      <p hidden={ hidden } data-testid="common_register__element-invalid_register">
-        {errorMessage}
-      </p>
-    </main>
+          {errorMessage}
+        </p>
+      </footer>
+    </div>
   );
 }
 
