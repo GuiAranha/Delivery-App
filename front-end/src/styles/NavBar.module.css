@@ -7,7 +7,7 @@
 
 .leftContainer {
   align-items: center;
-  background-color: #036b52;
+  background-color: #ffb435;
   display: flex;
   justify-content: left;
   list-style: none;
@@ -16,7 +16,7 @@
 
 .rigthContainer {
   align-items: center;
-  background-color: #036b52;
+  background-color: #ffb435;
   display: flex;
   justify-content: right;
   list-style: none;
@@ -24,28 +24,20 @@
 }
 
 .orders {
-  align-items: center;
-  background-color: #036b52;
+  background-color: #ffb435;
   color: white;
-  height: 4rem;
-  justify-content: center;
   width: 45%;
 }
 
 .products {
-  align-items: center;
-  background-color: #2fc18c;
-  display: flex;
-  font-weight: 600;
-  height: 4rem;
-  justify-content: center;
-  text-decoration: none;
+  background-color: #ff7f00;
+  color: #563f51;
   width: 35%;
 }
 
 .userName {
   align-items: center;
-  background-color: #421981;
+  background-color: #563f51;
   color: white;
   display: flex;
   height: 4rem;
@@ -55,10 +47,19 @@
 
 .logout {
   align-items: center;
-  background-color: #056cf9;
+  background-color: #998c95;
   color: white;
   display: flex;
   height: 4rem;
   justify-content: center;
   width: 6rem;
+}
+
+a {
+  align-items: center;
+  display: flex;
+  font-weight: 600;
+  height: 4rem;
+  justify-content: center;
+  text-decoration: none;
 }
