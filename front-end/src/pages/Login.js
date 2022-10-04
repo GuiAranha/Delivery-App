@@ -57,63 +57,70 @@ function Login() {
   };
 
   return (
-    <div className={styles.loginOuter}>
-      <main className={styles.loginMain}>
-        <div className={styles.loginWrapper}>
-          <div className={styles.logo}>
-            <h1>Delivery</h1>
-          </div>
-          <div className={styles.loginPage}>
-            <div className={styles.form}>
-              <label className={styles.labelInput}>Email Address</label>
-              <input
-                className={styles.inputPage}
-                type="email"
-                data-testid="common_login__input-email"
-                value={email}
-                onChange={({ target: { value } }) => setEmail(value)}
-              />
-              <label className={styles.labelInput}>Password</label>
-              <input
-                className={styles.inputPage}
-                type="password"
-                data-testid="common_login__input-password"
-                value={password}
-                onChange={({ target: { value } }) => setPassword(value)}
-              />
-              <button
-                className={ styles.btnLogin}
-                type="submit"
-                data-testid="common_login__button-login"
-                disabled={!(regex.test(email) && password.length >= six)}
-                onClick={async (e) => {
-                  e.preventDefault();
-                  await validateLogin({ email, password });
-                }}
-              >
-                Login
-              </button>
-            </div>
-            <div className={ styles.end }>
-              <span className={styles.separator}></span>
-
-              <button
-                className={styles.btn_rg}
-                type="button"
-                data-testid="common_login__button-register"
-                onClick={() => navigate('/register')}
-              >
-                Ainda não tenho conta
-              </button>
-            </div>
-          </div>
+    <div className={ styles.loginOuter }>
+      <main className={ (styles.loginMain, styles.loginWrapper) }>
+        {/* <div className={ styles.loginWrapper }> */}
+        <div className={ styles.logo }>
+          <h1>Delivery</h1>
         </div>
+        {/* <div className={styles.loginPage}> */}
+        <div className={ (styles.form, styles.loginPage) }>
+          <label className={ styles.labelInput } htmlFor="email-input">
+            Email Address
+            <input
+              className={ styles.inputPage }
+              type="email"
+              data-testid="common_login__input-email"
+              id="email-input"
+              value={ email }
+              onChange={ ({ target: { value } }) => setEmail(value) }
+            />
+          </label>
+          <label className={ styles.labelInput } htmlFor="password-input">
+            Password
+            <input
+              className={ styles.inputPage }
+              type="password"
+              data-testid="common_login__input-password"
+              id="password-input"
+              value={ password }
+              onChange={ ({ target: { value } }) => setPassword(value) }
+            />
+          </label>
+          <button
+            className={ styles.btnLogin }
+            type="submit"
+            data-testid="common_login__button-login"
+            disabled={ !(regex.test(email) && password.length >= six) }
+            onClick={ async (e) => {
+              e.preventDefault();
+              await validateLogin({ email, password });
+            } }
+          >
+            Login
+          </button>
+        </div>
+        <div className={ styles.end }>
+          <span className={ styles.separator } />
+
+          <button
+            className={ styles.btn_rg }
+            type="button"
+            data-testid="common_login__button-register"
+            onClick={ () => navigate('/register') }
+          >
+            Ainda não tenho conta
+          </button>
+        </div>
+        {/* </div> */}
+        {/* </div> */}
       </main>
       <footer className={ styles.footer }>
         <p
-          className={styles.message}
-          hidden={hidden}
-          data-testid="common_login__element-invalid-email">
+          className={ styles.message }
+          hidden={ hidden }
+          data-testid="common_login__element-invalid-email"
+        >
           {errorMessage}
         </p>
       </footer>
