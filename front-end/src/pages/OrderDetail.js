@@ -10,13 +10,24 @@ const moment = require('moment');
 function OrderDetail() {
   const { id } = useParams();
   const [saleState, setSaleState] = useState({ products: [], status: 'Pendente' });
+  const [entregue, setEntregue] = useState(false);
 
   useEffect(() => {
     getSaleById(id).then((response) => {
-      console.log(response);
       setSaleState(response);
     });
   }, []);
+
+  useEffect(() => {
+    if (entregue) {
+      localStorage.setItem(
+        'sales',
+        JSON.stringify({ ...saleState, status: 'Entregue' }),
+      );
+      setSaleState((prevState) => ({ ...prevState, status: 'Entregue' }));
+      updateSale({ id, status: 'Entregue' });
+    }
+  }, [entregue]);
 
   const { totalPrice, saleDate, seller, products, status } = saleState;
 
@@ -44,15 +55,9 @@ function OrderDetail() {
         data-testid="customer_order_details__button-delivery-check"
         type="button"
         disabled={ status !== 'Em Trânsito' }
-        onClick={ async (e) => {
+        onClick={ (e) => {
+          setEntregue(true);
           e.preventDefault();
-          setSaleState({ ...saleState, status: 'Entregue' });
-          localStorage.setItem(
-            'sales',
-            JSON.stringify({ ...saleState, status: 'Entregue' }),
-          );
-          await updateSale({ id, status: 'Entregue' });
-          console.log(saleState.status);
         } }
       >
         Marcar como Entregue

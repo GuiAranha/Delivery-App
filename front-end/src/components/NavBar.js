@@ -21,6 +21,8 @@ function NavBar(props) {
 
   const userLogout = () => {
     localStorage.removeItem('user');
+    localStorage.removeItem('sales');
+    localStorage.removeItem('cart');
   };
   return (
     <nav className={ styles.mainContainer }>
