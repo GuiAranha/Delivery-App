@@ -34,29 +34,29 @@ function Quantity(productInfos) {
     console.log(Number(value));
   };
   return (
-    <div className= { styles.form }>
+    <div className={ styles.form }>
       <button
-        className={styles.cart_btn}
+        className={ styles.cart_btn }
         type="button"
-        data-testid={`customer_products__button-card-rm-item-${product.id}`}
-        onClick={handleDecrement}
+        data-testid={ `customer_products__button-card-rm-item-${product.id}` }
+        onClick={ handleDecrement }
       >
         -
       </button>
       <input
-        className= { styles.quantity }
+        className={ styles.quantity }
         type="text"
-        inputmode="numeric"
-        min={0}
-        data-testid={`customer_products__input-card-quantity-${product.id}`}
-        value={quantity}
-        onChange={setValue}
+        inputMode="numeric"
+        min={ 0 }
+        data-testid={ `customer_products__input-card-quantity-${product.id}` }
+        value={ quantity }
+        onChange={ setValue }
       />
       <button
-        className={styles.cart_btn}
+        className={ styles.cart_btn }
         type="button"
-        data-testid={`customer_products__button-card-add-item-${product.id}`}
-        onClick={handleIncrement}
+        data-testid={ `customer_products__button-card-add-item-${product.id}` }
+        onClick={ handleIncrement }
       >
         +
       </button>

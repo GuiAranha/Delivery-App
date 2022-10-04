@@ -8,39 +8,43 @@ function Card(props) {
   const productInfos = { name, price, id };
 
   return (
-      <div className={styles.inner}>
-      <div className={styles.card}>
+    <div className={ styles.inner }>
+      <div className={ styles.card }>
         <div>
           <span
-            className={styles.tagPrice}
-            data-testid={`customer_products__element-card-price-${id}`}
+            className={ styles.tagPrice }
+            data-testid={ `customer_products__element-card-price-${id}` }
           >
-          R$ {' '} {price.replace(".", ",")}
+            R$
+            {' '}
+            {' '}
+            {' '}
+            {price.replace('.', ',')}
           </span>
-          <div className= { styles.outerImage}>
+          <div className={ styles.outerImage }>
             <img
-              className= { styles.image }
-              data-testid={`customer_products__img-card-bg-image-${id}`}
-              src={urlImage}
-              alt={name}
+              className={ styles.image }
+              data-testid={ `customer_products__img-card-bg-image-${id}` }
+              src={ urlImage }
+              alt={ name }
             />
           </div>
 
         </div>
-        <div className={styles.cardBottom}>
-          <div className= { styles.infos }>
+        <div className={ styles.cardBottom }>
+          <div className={ styles.infos }>
             <p
-              className={styles.title}
-              data-testid={`customer_products__element-card-title-${id}`}
+              className={ styles.title }
+              data-testid={ `customer_products__element-card-title-${id}` }
             >
               {name}
             </p>
           </div>
-            <Quantity product={productInfos} />
-          </div>
-
+          <Quantity product={ productInfos } />
         </div>
+
       </div>
+    </div>
   );
 }
 
@@ -52,4 +56,3 @@ Card.propTypes = {
 };
 
 export default Card;
-

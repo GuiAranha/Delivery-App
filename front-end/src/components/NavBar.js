@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import styles from '../styles/NavBar.module.css';
 
 function NavBar(props) {
@@ -9,10 +9,10 @@ function NavBar(props) {
   const { userRole } = props;
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem('user'));
 
     if (!user) {
-      navigate("/login");
+      navigate('/login');
     }
     if (user) {
       setName(user.name);
@@ -20,23 +20,24 @@ function NavBar(props) {
   }, []);
 
   const userLogout = () => {
-    localStorage.removeItem("user");
+    localStorage.removeItem('user');
+    localStorage.removeItem('sales');
+    localStorage.removeItem('cart');
   };
   return (
-    <nav className={styles.mainContainer}>
-      <div className={styles.leftContainer}>
+    <nav className={ styles.mainContainer }>
+      <div className={ styles.leftContainer }>
         <Link
           to={ `/${userRole}/products` }
-
           data-testid="customer_products__element-navbar-link-products"
-          className={styles.products}
+          className={ styles.products }
         >
           PRODUTOS
         </Link>
         <Link
           to={ `/${userRole}/orders` }
           data-testid="customer_products__element-navbar-link-orders"
-          className={styles.orders}
+          className={ styles.orders }
         >
           MEUS PEDIDOS
         </Link>
@@ -51,8 +52,8 @@ function NavBar(props) {
         <Link
           to="/"
           data-testid="customer_products__element-navbar-link-logout"
-          className={styles.logout}
-          onClick={userLogout}
+          className={ styles.logout }
+          onClick={ userLogout }
         >
           Sair
         </Link>
