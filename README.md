@@ -1,16 +1,17 @@
-# 🚧 README em construção 🚧
+Delivery App
 
-<!-- Olá, Tryber!
+Projeto Full Stack realizado na Trybe.
+Projeto realizado em grupo, com 5 integrantes, utilizando SCRUM e Kanban
+O que foi realizado no Back-End
+- Api com rotas de:
+  - Login
+  - Sales
+  - Products
+  - Orders
 
-Esse é apenas um arquivo inicial para o README do seu projeto.
-
-É essencial que você preencha esse documento por conta própria, ok?
-
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-
-⚠️ IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
-
--->
+O que foi realizado no Front-End
+- Telas de:
+  - Login / Cadastro
+  - Pedidos para vendedores e clientes
+  - Carrinho
+  - Produtos
