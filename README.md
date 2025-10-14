@@ -1,7 +1,8 @@
 Delivery App
 
 Projeto Full Stack realizado na Trybe.
-Projeto realizado em grupo, com 5 integrantes, utilizando SCRUM e Kanban
+Projeto realizado em grupo, com 5 integrantes, utilizando SCRUM e Kanban.
+
 O que foi realizado no Back-End
 - Api com rotas de:
   - Login
